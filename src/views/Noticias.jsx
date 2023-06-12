@@ -5,7 +5,6 @@ export const Noticias = () => {
 
   const [noticias, setNoticias] = useState(null);
 
-  console.log(process.env.REACT_APP_API_URL + '/noticias');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,20 +21,19 @@ export const Noticias = () => {
 
   return (
     <>
+      <Navbar/>
+      <main>
       <div>
       {noticias ? (
         <ul>
           {noticias.map(item => (
-            <li key={item.id}>{item.id}</li>
+            <li key={item.id}>{item.contenido}</li>
           ))}
         </ul>
       ) : (
         <p>Cargando datos...</p>
       )}
       </div>
-      <Navbar/>
-      <main>
-  
       </main>
     </>
   );
