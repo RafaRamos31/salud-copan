@@ -3,7 +3,7 @@ import logo from "../resources/logo.png";
 export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/api">
+      <a className="navbar-brand" href="/">
         <img
           src={logo}
           width="90"
@@ -27,27 +27,27 @@ export const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="/api/noticias.php">
+            <a className="nav-link" href="noticias">
               Noticias
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/api/contacto.php">
+            <a className="nav-link" href="contacto">
               Contacto
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/api/publicar.php">
+            <a className="nav-link" href="recursos">
               Recursos
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/api/contacto.php">
+            <a className="nav-link" href="sitios">
               Sitios de Interes
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/api/contacto.php">
+            <a className="nav-link" href="login">
               <button type="button" className="btn btn-warning">
                 <i className="bi bi-door-open-fill"></i>
                 Gestión
