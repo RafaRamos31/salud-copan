@@ -1,9 +1,11 @@
+import logo from "../resources/logo.png";
+
 export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/api">
         <img
-          src="recursos/logo.png"
+          src={logo}
           width="90"
           height="30"
           className="d-inline-block align-top"
@@ -40,12 +42,12 @@ export const Navbar = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/api/contacto.php">
               Sitios de Interes
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/api/contacto.php">
               <button type="button" className="btn btn-warning">
                 <i className="bi bi-door-open-fill"></i>
                 Gestión
