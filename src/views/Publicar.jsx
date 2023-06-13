@@ -3,6 +3,7 @@ import useFetch from "../hooks/useFetch.js";
 import '../assets/styles/publicar.css';
 //import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
+import { sendData } from "../services/sendData.js";
 
 export const Publicar = () => {
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
@@ -14,30 +15,9 @@ export const Publicar = () => {
     multimedia: []
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para manejar el envío del formulario
-    console.log('Valores del formulario:', values);
-
-    const formValues = new FormData();
-    formValues.append("departamento", values.departamento);
-    formValues.append("contenido", values.contenido);
-    formValues.append("multimedia", values.multimedia[0]);
-
-    fetch('https://api-usaid-copan.vercel.app/api/noticias', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
-    body: formValues,
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    console.log(await sendData(process.env.REACT_APP_API_URL + '/noticias', values));
   };
 
   return (

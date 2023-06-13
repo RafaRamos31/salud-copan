@@ -5,16 +5,16 @@ import { Video } from "./Video";
 
 export const ContainerMultimedia = ({tipo, enlaces}) => {
   switch (tipo) {
-    case "documento":
+    case "Documento":
       return <Documento enlace={enlaces[0]}/>;
 
-    case "foto":
+    case "Imagen":
       return <Fotografia enlace={enlaces[0]}/>;
 
-    case "video":
+    case "Video":
       return <Video enlace={enlaces[0]}/>;
 
-    case "galeria":
+    case "Galeria":
       return <Galeria enlaces={enlaces}/>;
 
     default:
