@@ -19,12 +19,17 @@ export const Publicar = () => {
     // Lógica para manejar el envío del formulario
     console.log('Valores del formulario:', values);
 
+    const formValues = new FormData();
+    formValues.append(values.departamento);
+    formValues.append(values.contenido);
+    formValues.append(values.multimedia[0]);
+
     fetch('https://api-usaid-copan.vercel.app/api/noticias', {
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data'
     },
-    body: values
+    body: formValues,
   })
     .then(response => response.json())
     .then(data => {
