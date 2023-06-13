@@ -54,6 +54,11 @@ export const Navbar = () => {
               </button>
             </a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="publicar">
+              Publicar
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

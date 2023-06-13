@@ -1,39 +1,22 @@
-import { useState, useEffect } from "react";
+import { ContainerNoticias } from "../components/ContainerNoticias.jsx";
 import { Navbar } from "../components/Navbar.jsx";
+import useFetch from "../hooks/useFetch.js";
+//import { mockNoticias } from "../services/mock-service.js";
+import '../assets/styles/noticias.css';
 
 export const Noticias = () => {
 
-  const [noticias, setNoticias] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(process.env.REACT_APP_API_URL + '/noticias');
-        const jsonData = await response.json();
-        setNoticias(jsonData);
-      } catch (error) {
-        console.error('Error al obtener los datos:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/noticias');
+  //const { data, isLoading }  = mockNoticias();
 
   return (
     <>
       <Navbar/>
       <main>
-      <div>
-      {noticias ? (
-        <ul>
-          {noticias.map(item => (
-            <li key={item.id}>{item.contenido}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>Cargando datos...</p>
-      )}
-      </div>
+        <aside>
+          Filtros
+        </aside>
+        {!isLoading && <ContainerNoticias noticias={data}/>}
       </main>
     </>
   );
