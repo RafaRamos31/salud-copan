@@ -4,7 +4,6 @@ export const ContainerNoticias = ({isLoading, noticias}) => {
   if(isLoading){
     return <p>Cargando datos...</p>
   }
-  console.log(noticias)
   return (
     <div className="contenedor-noticias">
       {

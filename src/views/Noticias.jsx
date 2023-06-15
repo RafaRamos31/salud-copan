@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar.jsx";
 import useFetch from "../hooks/useFetch.js";
 //import { mockNoticias } from "../services/mock-service.js";
 import '../assets/styles/noticias.css';
+import { BarraFiltros } from "../components/BarraFiltros.jsx";
 
 export const Noticias = () => {
 
@@ -13,10 +14,8 @@ export const Noticias = () => {
     <>
       <Navbar/>
       <main>
-        <aside>
-          Filtros
-        </aside>
-        {!isLoading && <ContainerNoticias noticias={data}/>}
+        <BarraFiltros />
+        {!isLoading && <ContainerNoticias noticias={data} />}
       </main>
     </>
   );

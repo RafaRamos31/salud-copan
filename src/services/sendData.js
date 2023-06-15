@@ -10,8 +10,9 @@ export async function sendData(url, values) {
       method: "POST",
       body: formValues,
     });
+
     if (!response.ok) {
-      throw new Error("Error al obtener los datos");
+      throw new Error("Error al enviar noticia");
     }
     const jsonData = await response.json();
     return jsonData;

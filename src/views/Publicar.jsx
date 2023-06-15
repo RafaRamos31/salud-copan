@@ -39,7 +39,7 @@ export const Publicar = () => {
         </div>
         <div className="form-group">
           <label htmlFor="multimedia">Adjuntar multimedia (imagenes, videos o documentos)</label>
-          <input type="file" className="form-control-file" name="multimedia" id="multimedia" onChange={handleChange} multiple/>
+          <input type="file" className="form-control-file" name="multimedia" id="multimedia" onChange={handleChange} />
         </div>
         <button type="submit" className="btn btn-primary">Publicar</button>
       </form>

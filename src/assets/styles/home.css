@@ -1,0 +1,28 @@
+.media-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-organigrama{
+  object-fit: cover;
+}
+
+.items-container{
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.item{
+  background-color: darkslategray;
+  margin: 10px;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  color: white;
+}

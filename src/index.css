@@ -17,6 +17,10 @@ header{
   background-color: var(--color-panel);
 }
 
+.main-logo{
+  margin: 3px 8px;
+}
+
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -33,14 +37,14 @@ h1, h2{
   width: 100%
 }
 
-.hero p{
+.text-nosotros, .text-departamento{
   padding: 0 auto;
   text-align: center;
   width: 100%;
   font-style: italic;
 }
 
-.hero img{
+.img-principal{
   width: 100%;
   height: 40vh;
   object-fit: cover;

@@ -8,7 +8,7 @@ export const Navbar = () => {
           src={logo}
           width="90"
           height="30"
-          className="d-inline-block align-top"
+          className="d-inline-block align-top main-logo"
           alt=""
         />
         Nutrición | Copán

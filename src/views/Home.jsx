@@ -1,5 +1,6 @@
 import { Navbar } from "../components/Navbar.jsx";
 import data from "../resources/general-data.json"; 
+import '../assets/styles/home.css';
 
 export const Home = () => {
   return (
@@ -8,7 +9,7 @@ export const Home = () => {
       <main className="hero">
     <div>
       <h1>Proyecto Avanzando la Nutrición en Honduras</h1>
-      <p>Departamento de Copán</p>
+      <p className="text-departamento">Departamento de Copán</p>
       <img className="img-principal" src="https://cdn.aarp.net/content/dam/aarp/health/conditions_treatments/2023/03/1140-heart-health-weight-loss-esp.jpg" alt="banner nutricion" />
     </div>
     <section className="sobre-nosotros">
@@ -17,7 +18,13 @@ export const Home = () => {
         <p className="text-nosotros">
           {data["quienes-somos"]}
         </p>
-        <img className="img-nosotros" src="https://media.istockphoto.com/id/888804786/es/foto/permita-que-sus-manos-decida.jpg?s=612x612&w=0&k=20&c=1zGpVGIKYfLwvh60E3iIn33O6tHYkskx3jvUdF_d5Ws=" alt="ayuda humanitaria" />
+      </div>
+
+      <h2>Palabras de nuestro fundador</h2>
+      <div className="container">
+        <p className="text-fundador">
+          {data.mensaje}
+        </p>
       </div>
     </section>
 
@@ -40,12 +47,17 @@ export const Home = () => {
     <section className="organigrama">
       <h2>Organigrama</h2>
       <div className="media-container">
-      <img className="organigrama" src="https://www.ticportal.es/wp-content/uploads/matrix-structure-design.png?x25788" alt="organigrama" />
+      <img className="img-organigrama" src="https://www.ticportal.es/wp-content/uploads/matrix-structure-design.png?x25788" alt="organigrama" />
       </div>
     </section>
 
     <section className="valores">
       <h2>Nuestros Valores</h2>
+      <ul>
+      {
+        data.valores.map(valor => (<li>{valor}</li>))
+      }
+      </ul>
     </section>
 
     <section className="cobertura">
