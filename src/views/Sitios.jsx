@@ -1,10 +1,10 @@
-import { Navbar } from "../components/Navbar.jsx";
+import { SiteNavBar } from "../components/SiteNavBar.jsx";
 import data from "../resources/general-data.json"; 
 
 export const Sitios = () => {
   return (
     <>
-      <Navbar/>
+      <SiteNavBar/>
       <main>
     <hero>
       <h1>Sitios de Interes</h1>

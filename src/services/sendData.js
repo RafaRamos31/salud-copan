@@ -1,9 +1,11 @@
+import { sendFiles } from "../controllers/google-controller.js";
+
 export async function sendData(url, values) {
   const formValues = new FormData();
 
   formValues.append("departamento", values.departamento);
   formValues.append("contenido", values.contenido);
-  formValues.append("multimedia", values.multimedia[0]);
+  formValues.append("archivos", await sendFiles(values.multimedia));
 
   try {
     const response = await fetch(url, {
@@ -17,6 +19,7 @@ export async function sendData(url, values) {
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {
+    
     return error.message;
   }
 }

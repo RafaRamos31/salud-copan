@@ -1,7 +1,9 @@
-import React from 'react'
+import { Button } from 'react-bootstrap'
 
 export const Documento = ({enlace}) => {
   return (
-    <a className='document-link' href={enlace} target="_blank" rel="noreferrer" download="document.pdf"><i class="bi bi-file-earmark-medical"></i>Ver archivo</a>
+    <Button variant='light'>
+      <a className='doc-button' href={enlace} target="_blank" rel="noreferrer"><i className="bi bi-file-earmark-medical"></i>Ver archivo</a>
+    </Button>
   )
 }

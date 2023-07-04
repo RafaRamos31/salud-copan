@@ -1,21 +1,20 @@
-import React from 'react'
-import useFetch from '../hooks/useFetch';
-import { Departamento } from './Departamento';
+import { ListGroup } from 'react-bootstrap';
 
 export const BarraFiltros = () => {
-
-  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
-
   return (
     <aside>
       <h3>Filtros</h3>
-      {
-        !isLoading &&
-        data.map(depto => (
-        <div className='filter-item'>
-          <Departamento key={depto._id} nombre={depto.nombre} urlLogo={depto.urlLogo} />
-        </div>))
-      }
+      <ListGroup variant='dark' defaultActiveKey="#link1" >
+        <ListGroup.Item variant='info' action href="#link1">
+          Link 1
+        </ListGroup.Item>
+        <ListGroup.Item variant='info' action href="#link2">
+          Link 2
+        </ListGroup.Item>
+        <ListGroup.Item variant='info' action href="#link3">
+          Link 3
+        </ListGroup.Item>
+      </ListGroup>
     </aside>
   )
 }

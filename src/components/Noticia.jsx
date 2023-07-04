@@ -1,22 +1,33 @@
+import { Card, Col, Row } from "react-bootstrap";
 import { getDateString } from "../services/stringFormatter";
 import { Departamento } from "./Departamento";
 import { ContainerMultimedia } from "./multimedia/ContainerMultimedia";
 
 export const Noticia = ({noticia}) => {
   return (
-    <div className="noticia">
-      <div className="encabezado">
-        <Departamento key={noticia._id} nombre={noticia.departamento.nombre} urlLogo={noticia.departamento.urlLogo}/>
-        <p className="fecha">{getDateString(noticia.fechaPublicacion)}</p>
-      </div>
-      <div className="contenido">
+    <Card className="mb-4 mr-3">
+      <Card.Header className="encabezado">
+        <Row>
+          <Col sm={8}>
+            <Departamento key={noticia._id} nombre={noticia.departamento.nombre} urlLogo={noticia.departamento.urlLogo}/>
+          </Col>
+          <Col sm={4}>
+            <p className="fecha">{getDateString(noticia.fechaPublicacion)}</p>
+          </Col>
+        </Row>
+      </Card.Header>
+      <Card.Body>
         <p>
           {noticia.contenido}
         </p>
         <div className="container-multimedia">
-          <ContainerMultimedia tipo={noticia.tipoMultimedia} enlaces={noticia.enlaces}/>
+        {
+          noticia.archivos.map((archivo, i) => (
+            <ContainerMultimedia key={i} tipo={archivo.tipo} enlace={archivo.enlace}/>
+          )) 
+        }
         </div>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
