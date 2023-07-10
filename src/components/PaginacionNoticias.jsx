@@ -1,9 +1,11 @@
 import { Container, Pagination } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
+//import useFetch from "../hooks/useFetch";
+import { mockCountNoticias } from "../services/mock-service";
 
 export const PaginacionNoticias = ({index}) => {
-  const {data, isLoading} = useFetch(process.env.REACT_APP_API_URL + '/countnoticias');
+  //const {data, isLoading} = useFetch(process.env.REACT_APP_API_URL + '/countnoticias');
+  const {data, isLoading} = mockCountNoticias();
   const [pages, setPages] = useState(1);
 
   useEffect(() => {

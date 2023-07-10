@@ -16,7 +16,10 @@ export function mockNoticias() {
             "_id": "64a43ddf944185a901df0b8b",
             "nombre": "es-hoja-cuadriculada-negro.pdf",
             "tipo": "Documento",
+            "tamano": 45345,
             "enlace": "https://drive.google.com/file/d/19oyFwGEY6ojlE4YH8Ti_zTzrYWN0kloV/view",
+            "descargar": "https://drive.google.com/u/0/uc?id=19oyFwGEY6ojlE4YH8Ti_zTzrYWN0kloV&export=download",
+            "totalDescargas": 456,
             "__v": 0
           }
         ],
@@ -31,8 +34,16 @@ export function mockNoticias() {
           "__v": 0
         },
         "fechaPublicacion": "1688483590068",
-        "contenido": "Publicacion sin archivos",
-        "archivos": [],
+        "contenido": "Publicacion con una imagen",
+        "archivos": [
+          {
+            "_id": "64a436756a108bbb415a02bc",
+            "nombre": "backImage.png",
+            "tipo": "Imagen",
+            "enlace": "https://drive.google.com/file/d/1ueXoe_8zVBxOSINhLC8I3aOrH0AXZaM0/view",
+            "__v": 0
+          }
+        ],
         "__v": 0
       },
       {

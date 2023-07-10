@@ -1,9 +1,21 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Modal } from "react-bootstrap";
 import logo from "../resources/logo.png";
 import { Link } from "react-router-dom";
+import { Login } from "../views/Login";
+import { useState } from "react";
+import { logout } from "../services/login-service";
 
 export const SiteNavBar = () => {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const valid = localStorage.getItem("user-id");
+
+
   return (
+    <>
     <Navbar expand="lg"  className="bg-body-tertiary " sticky="top">
       <Container fluid>
         <Navbar.Brand href="/">
@@ -23,10 +35,18 @@ export const SiteNavBar = () => {
             <Link to={'/contacto'} className="nav-link">Contacto</Link>
             <Link to={'/recursos'} className="nav-link">Recursos</Link>
             <Link to={'/sitios'} className="nav-link">Sitios de Interés</Link>
-            <Button variant="warning"><i className="bi bi-door-open-fill"></i><Link to={'/login'} className="nav-item">Gestión</Link></Button>
+            {
+              valid ? 
+              <Button variant="danger" onClick={logout}><i className="bi bi-door-open-fill"></i>Cerrar Sesión</Button>
+              : <Button variant="warning" onClick={handleShow}><i className="bi bi-door-open-fill"></i>Gestión</Button>
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Modal show={show} onHide={handleClose}>
+      <Login />
+    </Modal>
+    </>
   );
 };

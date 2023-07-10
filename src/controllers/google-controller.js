@@ -7,23 +7,15 @@
  */
 
 import stream from "stream";
-import path from "path";
-import { fileURLToPath } from 'url';
 import { google } from "googleapis";
 
-//Procedimiento para el correcto enrutamiento a un documento ubicado en la raiz del proyecto
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-//Se define la ruta al archivo con las credenciales de acceso como servicio de Google Drive
-const KEYFILENAME = path.join(__dirname, '../../../credentials.json');
 
 //Se define el alcance del permiso de operacion, en este caso acceso total en Drive
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
 
 //Se  crea el objeto de credenciales
 const auth = new google.auth.GoogleAuth({
-  keyFilename: KEYFILENAME,
+  keyFilename: '../../credentials.json',
   scopes: SCOPES,
 });
 
@@ -41,7 +33,8 @@ export async function sendFiles(files){
 
       const archivo = {
         nombre: files[i].originalname,
-        enlace: await uploadFile(files[i])
+	      weight: files[i].size,
+        id: await uploadFile(files[i])
       }
 
       archivos = archivos.concat(archivo);
@@ -79,5 +72,5 @@ const uploadFile = async (fileObject) => {
   });
   
   //Genera una URL valida en base al ID generado por el archivo guardado
-  return 'https://drive.google.com/file/d/' + data.id + '/view';
+  return data.id;
 };

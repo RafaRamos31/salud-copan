@@ -1,7 +1,7 @@
 //import useFetch from "../hooks/useFetch.js";
 import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
-import { sendData } from "../services/sendData.js";
+import { sendNoticia } from "../services/noticias-service.js";
 import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
 
 export const Publicar = () => {
@@ -16,7 +16,7 @@ export const Publicar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(await sendData(process.env.REACT_APP_API_URL + '/noticias', values));
+    console.log(await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values));
   };
 
   return (

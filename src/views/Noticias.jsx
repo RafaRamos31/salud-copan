@@ -7,12 +7,13 @@ import { SiteNavBar } from "../components/SiteNavBar.jsx";
 import { Publicar } from "./Publicar.jsx";
 import { PaginacionNoticias } from "../components/PaginacionNoticias.jsx";
 import { BarraFiltros } from "../components/BarraFiltros.jsx";
-import useFetch from "../hooks/useFetch.js";
+//import useFetch from "../hooks/useFetch.js";
 import '../assets/styles/noticias.css';
 
 export const Noticias = () => {
   const {index} = useParams();
-  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/noticias');
+  //const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/noticias/' + index);
+  const { data, isLoading } = mockNoticias();
 
   const [show, setShow] = useState(false);
 

@@ -2,16 +2,16 @@ import { Documento } from "./Documento";
 import { Fotografia } from "./Fotografia";
 import { Video } from "./Video";
 
-export const ContainerMultimedia = ({tipo, enlace}) => {
-  switch (tipo) {
+export const ContainerMultimedia = ({archivo}) => {
+  switch (archivo.tipo) {
     case "Documento":
-      return <Documento enlace={enlace}/>;
+      return <Documento archivo={archivo}/>;
 
     case "Imagen":
-      return <Fotografia enlace={enlace}/>;
+      return <Fotografia enlace={archivo.enlace}/>;
 
     case "Video":
-      return <Video enlace={enlace}/>;
+      return <Video enlace={archivo.enlace}/>;
 
     default:
       return null;

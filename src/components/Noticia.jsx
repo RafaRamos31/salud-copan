@@ -22,8 +22,10 @@ export const Noticia = ({noticia}) => {
         </p>
         <div className="container-multimedia">
         {
-          noticia.archivos.map((archivo, i) => (
-            <ContainerMultimedia key={i} tipo={archivo.tipo} enlace={archivo.enlace}/>
+          noticia.archivos.length > 1 && noticia.archivos.every((archivo) => archivo.tipo === "Imagen") 
+          ? <div> Galeria </div>
+          : noticia.archivos.map((archivo, i) => (
+            <ContainerMultimedia key={i} archivo={archivo}/>
           )) 
         }
         </div>
