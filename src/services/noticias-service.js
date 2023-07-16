@@ -1,7 +1,7 @@
 //import { sendFiles } from "../controllers/google-controller.js";
 
 export async function sendNoticia(url, values) {
-  const formValues = new FormData();
+  let formValues = new FormData();
 
   formValues.append("departamento", values.departamento);
   formValues.append("contenido", values.contenido);
@@ -14,12 +14,11 @@ export async function sendNoticia(url, values) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al enviar noticia");
+      throw new Error("Error al enviar noticia:");
     }
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {
-    
     return error.message;
   }
 }

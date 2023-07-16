@@ -2,104 +2,113 @@ export function mockNoticias() {
   return {
     data: [
       {
-        "_id": "64a43ddf944185a901df0b8e",
+        "_id": "64ad6bb748f383964f629f07",
         "departamento": {
-          "_id": "648893832efaaaff55b2a843",
-          "nombre": "Departamento B",
-          "urlLogo": "https://w7.pngwing.com/pngs/701/782/png-transparent-logo-book-book-writing-blue-text-comic-book.png",
+          "_id": "64874b401ccc73e359451bbd",
+          "nombre": "Departamento A",
+          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
           "__v": 0
         },
-        "fechaPublicacion": "1688485343934",
-        "contenido": "Junta de directiva",
+        "fechaPublicacion": "1689086903162",
+        "contenido": "Publicacion local insomnia",
         "archivos": [
           {
-            "_id": "64a43ddf944185a901df0b8b",
-            "nombre": "es-hoja-cuadriculada-negro.pdf",
+            "_id": "64ad6bb748f383964f629f05",
+            "nombre": "c0ee2fb7-da04-4fff-acc8-8e02b53a5c44.jpg",
+            "tipo": "Imagen",
+            "tamano": 45263,
+            "fileId": "1ERbskj__WJ4WjDEPS-YRmctf34ZzJOd1",
+            "enlace": "https://drive.google.com/file/d/1ERbskj__WJ4WjDEPS-YRmctf34ZzJOd1/view",
+            "descargar": "https://drive.google.com/u/0/uc?id=1ERbskj__WJ4WjDEPS-YRmctf34ZzJOd1&export=download",
+            "totalDescargas": 0,
+            "__v": 0
+          }
+        ],
+        "__v": 0
+      },
+      {
+        "_id": "64ad66ee48f383964f629f02",
+        "departamento": {
+          "_id": "64874b401ccc73e359451bbd",
+          "nombre": "Departamento A",
+          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
+          "__v": 0
+        },
+        "fechaPublicacion": "1689085678884",
+        "contenido": "Publicacion vacia",
+        "archivos": [],
+        "__v": 0
+      },
+      {
+        "_id": "64ad64d648f383964f629eff",
+        "departamento": {
+          "_id": "64874b401ccc73e359451bbd",
+          "nombre": "Departamento A",
+          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
+          "__v": 0
+        },
+        "fechaPublicacion": "1689085142372",
+        "contenido": "Publicacion con docs",
+        "archivos": [
+          {
+            "_id": "64ad64d448f383964f629efb",
+            "nombre": "Informe de Actividades Marzo-Abril.xlsx",
             "tipo": "Documento",
-            "tamano": 45345,
-            "enlace": "https://drive.google.com/file/d/19oyFwGEY6ojlE4YH8Ti_zTzrYWN0kloV/view",
-            "descargar": "https://drive.google.com/u/0/uc?id=19oyFwGEY6ojlE4YH8Ti_zTzrYWN0kloV&export=download",
-            "totalDescargas": 456,
-            "__v": 0
-          }
-        ],
-        "__v": 0
-      },
-      {
-        "_id": "64a437066a108bbb415a02c5",
-        "departamento": {
-          "_id": "64874b401ccc73e359451bbd",
-          "nombre": "Departamento A",
-          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
-          "__v": 0
-        },
-        "fechaPublicacion": "1688483590068",
-        "contenido": "Publicacion con una imagen",
-        "archivos": [
-          {
-            "_id": "64a436756a108bbb415a02bc",
-            "nombre": "backImage.png",
-            "tipo": "Imagen",
-            "enlace": "https://drive.google.com/file/d/1ueXoe_8zVBxOSINhLC8I3aOrH0AXZaM0/view",
-            "__v": 0
-          }
-        ],
-        "__v": 0
-      },
-      {
-        "_id": "64a436756a108bbb415a02bf",
-        "departamento": {
-          "_id": "64874b401ccc73e359451bbd",
-          "nombre": "Departamento A",
-          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
-          "__v": 0
-        },
-        "fechaPublicacion": "1688483445538",
-        "contenido": "Publicacion con imagenes",
-        "archivos": [
-          {
-            "_id": "64a436736a108bbb415a02ba",
-            "nombre": "medLogo.png",
-            "tipo": "Imagen",
-            "enlace": "https://drive.google.com/file/d/1ZeJ688gHPjiapFYp2_DQlinwjv1V_kF2/view",
+            "tamano": 15797,
+            "fileId": "1pY_8C1hnbjhTGJUVxz8g5t-ZIc5fnD3K",
+            "enlace": "https://drive.google.com/file/d/1pY_8C1hnbjhTGJUVxz8g5t-ZIc5fnD3K/view",
+            "descargar": "https://drive.google.com/u/0/uc?id=1pY_8C1hnbjhTGJUVxz8g5t-ZIc5fnD3K&export=download",
+            "totalDescargas": 0,
             "__v": 0
           },
           {
-            "_id": "64a436756a108bbb415a02bc",
-            "nombre": "backImage.png",
-            "tipo": "Imagen",
-            "enlace": "https://drive.google.com/file/d/1ueXoe_8zVBxOSINhLC8I3aOrH0AXZaM0/view",
+            "_id": "64ad64d648f383964f629efd",
+            "nombre": "es-hoja-cuadriculada-negro (2).pdf",
+            "tipo": "Documento",
+            "tamano": 12929,
+            "fileId": "1jQeiIo2lnIxpjqPBT-fhMSG7R5Ss3rgZ",
+            "enlace": "https://drive.google.com/file/d/1jQeiIo2lnIxpjqPBT-fhMSG7R5Ss3rgZ/view",
+            "descargar": "https://drive.google.com/u/0/uc?id=1jQeiIo2lnIxpjqPBT-fhMSG7R5Ss3rgZ&export=download",
+            "totalDescargas": 0,
             "__v": 0
           }
         ],
         "__v": 0
       },
       {
-        "_id": "64a435b86a108bbb415a02b8",
+        "_id": "64ac736fb63c2fbff4158b67",
         "departamento": {
           "_id": "64874b401ccc73e359451bbd",
           "nombre": "Departamento A",
           "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
           "__v": 0
         },
-        "fechaPublicacion": "1688483256729",
-        "contenido": "El 15 de junio....",
-        "archivos": [
-          {
-            "_id": "64a435b66a108bbb415a02b3",
-            "nombre": "Cuarta Revolucion Industrial.pptx",
+        "fechaPublicacion": "1689023343146",
+        "contenido": "Publicacion con docs",
+        "archivos": [{
+            "_id": "64ad64d448f383964f629efb",
+            "nombre": "Informe de Actividades Marzo-Abril.xlsx",
             "tipo": "Documento",
-            "enlace": "https://drive.google.com/file/d/1_R2a4LDnp_K23SH2jWkmWMv91f4CLqoT/view",
+            "tamano": 15797,
+            "fileId": "12PZ08wM6AtEWCymTzkTAI3avXAZeb-YX",
+            "enlace": "https://drive.google.com/file/d/12PZ08wM6AtEWCymTzkTAI3avXAZeb-YX/view",
+            "descargar": "https://drive.google.com/u/0/uc?id=12PZ08wM6AtEWCymTzkTAI3avXAZeb-YX&export=download",
+            "totalDescargas": 0,
             "__v": 0
-          },
-          {
-            "_id": "64a435b86a108bbb415a02b5",
-            "nombre": "EconomÃ­a Colaborativa-EconomÃ­a Naranja.pptx",
-            "tipo": "Documento",
-            "enlace": "https://drive.google.com/file/d/19sHx3qzVuKt3n5iB7OhEN1aVSFQoAtPX/view",
-            "__v": 0
-          }
-        ],
+          }],
+        "__v": 0
+      },
+      {
+        "_id": "64a48449e718954aad900b87",
+        "departamento": {
+          "_id": "64874b401ccc73e359451bbd",
+          "nombre": "Departamento A",
+          "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
+          "__v": 0
+        },
+        "fechaPublicacion": "1688503369396",
+        "contenido": "Publicacion sin archivos",
+        "archivos": [],
         "__v": 0
       }
     ],
@@ -122,18 +131,23 @@ export function mockDepartamentos(){
   return {
     data: [
       {
-        _id: "64874b401ccc73e359451bbd",
-        nombre: "Nutricion Infantil",
-        urlLogo: "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
-        __v: 0,
+        "_id": "64874b401ccc73e359451bbd",
+        "nombre": "Departamento A",
+        "urlLogo": "https://thumbs.dreamstime.com/z/icono-de-la-manzana-44274908.jpg",
+        "__v": 0
       },
       {
-        _id: "648893832efaaaff55b2a843",
-        nombre: "Educacion nutricional",
-        urlLogo:
-          "https://w7.pngwing.com/pngs/701/782/png-transparent-logo-book-book-writing-blue-text-comic-book.png",
-        __v: 0,
+        "_id": "648893832efaaaff55b2a843",
+        "nombre": "Departamento B",
+        "urlLogo": "https://w7.pngwing.com/pngs/701/782/png-transparent-logo-book-book-writing-blue-text-comic-book.png",
+        "__v": 0
       },
+      {
+        "_id": "648b456a810b363e11711361",
+        "nombre": "Departamento C",
+        "urlLogo": "https://cdn-icons-png.flaticon.com/512/7787/7787798.png",
+        "__v": 0
+      }
     ],
     isLoading: false,
     error: null

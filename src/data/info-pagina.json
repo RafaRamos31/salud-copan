@@ -1,4 +1,6 @@
 {
+  "departamento": "Ocotepeque",
+  "area": "Salud",
   "quienes-somos": "Nos dedicamos apasionadamente a marcar la diferencia en la vida de las personas y comunidades que más lo necesitan. Nuestra organización es una entidad sin fines de lucro comprometida con la promoción del bienestar social, la igualdad de oportunidades y el desarrollo sostenible. A través de programas innovadores y colaborativos, trabajamos de la mano con individuos, familias y grupos vulnerables para brindarles el apoyo necesario y fortalecer su capacidad de superar desafíos. Nuestro equipo multidisciplinario de profesionales altamente comprometidos y voluntarios entusiastas se esfuerza por crear un impacto duradero, promoviendo la educación, el acceso a servicios básicos, la salud, la inclusión social y el respeto por el medio ambiente. En [Nombre de la ONG], creemos en el poder del trabajo conjunto para construir un mundo más justo y equitativo, donde cada individuo tenga la oportunidad de alcanzar su máximo potencial. ",
   "mensaje": "A medida que avanzamos hacia el futuro, mi visión para nuestra comunidad es construir un lugar próspero, donde cada individuo tenga la oportunidad de crecer, aprender y prosperar. Trabajaremos en conjunto para promover la educación, el desarrollo económico y la preservación de nuestro entorno natural. Cada uno de ustedes tiene un papel vital en esta comunidad, y al unirnos, podemos enfrentar cualquier desafío que se presente. Sigamos construyendo puentes, generando oportunidades y creando un legado duradero para las generaciones venideras. Juntos, podemos hacer de nuestra comunidad rural un lugar vibrante y lleno de esperanza.",
   "autor": "Rigoberto Soza, Fundador Consejo AAAAA, Concepcion, Copán", 
@@ -25,5 +27,6 @@
       "nombre": "Colaboración",
       "contenido" : "Fomentamos un ambiente de trabajo colaborativo, valorando la diversidad de opiniones y promoviendo el trabajo en equipo para lograr resultados superiores."
     }
-  ]
+  ],
+  "enlace-mapa": "https://www.google.com/maps/d/u/0/embed?mid=1nxnqEDOdohJ6B1ndDKxpJIYGfffCzCU&ehbc=2E312F"
 }

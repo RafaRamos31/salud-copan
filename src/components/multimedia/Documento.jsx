@@ -1,8 +1,15 @@
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row, Modal } from 'react-bootstrap'
+import { useState } from "react"
 
 export const Documento = ({archivo}) => {
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
+    <>
     <Container>
       <Row>
           <Col sm={0} md={4}>
@@ -11,7 +18,7 @@ export const Documento = ({archivo}) => {
             <Card>
               <Card.Header>{archivo.nombre}</Card.Header>
               <Card.Body className='d-flex justify-content-center'>
-                <Button variant='info' href={archivo.enlace} target='_blank'>
+                <Button variant='info' onClick={handleShow}>
                   <i className="bi bi-eye-fill"></i>
                 </Button>
                 <Button variant='info' href={archivo.descargar} target='_blank'>
@@ -28,5 +35,10 @@ export const Documento = ({archivo}) => {
           </Col>
         </Row>
     </Container>
+    <Modal size='lg' show={show} onHide={handleClose}>
+      <iframe title={archivo.nombre} src={`https://drive.google.com/file/d/${archivo.fileId}/preview`} 
+      width="auto" height="480" allow="autoplay"></iframe>
+    </Modal>
+    </>
   )
 }

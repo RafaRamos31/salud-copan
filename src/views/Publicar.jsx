@@ -16,7 +16,7 @@ export const Publicar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values));
+    console.log(await sendNoticia(process.env.REACT_APP_API_URL + '/noticiasFile', values));
   };
 
   return (

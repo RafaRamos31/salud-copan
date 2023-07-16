@@ -1,11 +1,13 @@
 import { Button, Container, Modal, Tab, Tabs } from "react-bootstrap";
-import { SiteNavBar } from "../components/SiteNavBar.jsx";
 import { mockArchivos } from "../services/mock-service.js";
 import { ContainerDocumentos } from "../components/ContainerDocumentos.jsx";
 import { useState } from "react";
 import { SubirArchivo } from "./SubirArchivo.jsx";
+import useTitle from "../hooks/useTitle.js";
+import { Layout } from "./Layout.jsx";
 
 export const Recursos = () => {
+  useTitle("Recursos");
   const {data, isLoading} = mockArchivos();
 
   const [show, setShow] = useState(false);
@@ -14,8 +16,7 @@ export const Recursos = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <>
-      <SiteNavBar/>
+    <Layout pagina={"Recursos"}>
       <Button variant="info" onClick={handleShow}>
               Publicar
           </Button>
@@ -42,6 +43,6 @@ export const Recursos = () => {
       <Modal show={show} onHide={handleClose}>
         <SubirArchivo />
       </Modal>
-    </>
+    </Layout>
   );
 }

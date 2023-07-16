@@ -1,12 +1,9 @@
-import { SiteNavBar } from "../components/SiteNavBar.jsx";
+import { Layout } from "./Layout.jsx";
 
 export const Sitios = () => {
-  return (
-    <>
-      <SiteNavBar/>
-      <main>
-    
-      </main>
-    </>
-  );
+  return(
+    <Layout pagina={"Sitios de Interés"}>
+      <h1>Sitios</h1>
+    </Layout>
+  )
 }
