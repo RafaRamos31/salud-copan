@@ -41,7 +41,7 @@ export const Recursos = () => {
             fill
           >
             <Tab eventKey="home" title="Documentos">
-              {!isLoading && <ContainerDocumentos  documentos={data} />} 
+              {!isLoading && <ContainerDocumentos documentos={data} />} 
             </Tab>
             <Tab eventKey="profile" title="Imagenes">
               <Container>
