@@ -1,19 +1,23 @@
 import { ListGroup } from 'react-bootstrap';
+//import useFetch from '../hooks/useFetch';
+import { mockDepartamentos } from '../services/mock-service';
 
-export const BarraFiltros = () => {
+export const BarraFiltros = ({activeFilter}) => {
+  //const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
+  const { data, isLoading }  = mockDepartamentos();
+
   return (
-    <aside>
+    <aside className="px-3 mt-4">
       <h3>Filtros</h3>
-      <ListGroup variant='dark' defaultActiveKey="#link1" >
-        <ListGroup.Item variant='info' action href="#link1">
-          Link 1
-        </ListGroup.Item>
-        <ListGroup.Item variant='info' action href="#link2">
-          Link 2
-        </ListGroup.Item>
-        <ListGroup.Item variant='info' action href="#link3">
-          Link 3
-        </ListGroup.Item>
+      <ListGroup variant='dark'>
+        {
+          !isLoading &&
+          data.map(depto => (
+            <ListGroup.Item key={depto._id} variant='info' action href={`/noticias/${depto._id}/1`} active={depto._id === activeFilter}>
+              {depto.nombre}
+            </ListGroup.Item>
+          ))
+        }
       </ListGroup>
     </aside>
   )

@@ -1,53 +1,23 @@
 //import { sendFiles } from "../controllers/google-controller.js";
 
+import { sendArchivo } from "./archivos-service.js";
+
 export async function sendNoticia(url, values) {
-
-  const file = values.multimedia[0];
-  const chunkSize = 2 * 1024 * 1024; // Tamaño del fragmento en bytes
-  let start = 0;
-  let end = chunkSize;
-  let currentChunk = 1;
-
-  const totalChunks = Math.ceil(file.size / chunkSize);
-
-  while (start < file.size) {
-    const chunk = file.slice(start, end); // Lee el fragmento del archivo
-
-    // Crea una solicitud para enviar el fragmento al backend
-    const formData = new FormData();
-    formData.append('name', file.originalname);
-    formData.append('type', file.mimetype);
-    formData.append('totalChunks', totalChunks);
-    formData.append('actual', currentChunk);
-    formData.append('totalSize', file.size);
-    formData.append('chunk', chunk);
-
-    // Realiza la solicitud al backend
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
   
-      if (!response.ok) {
-        throw new Error("Error al enviar noticia:");
-      }
-      const jsonData = await response.json();
-      console.log(jsonData);
-    } catch (error) {
-      console.log(error)
-    }
+  let archivos = []
 
-
-    // Actualiza los punteros para el siguiente fragmento
-    start = end;
-    end = Math.min(end + chunkSize, file.size);
-    currentChunk++;
+  for (let i = 0; i < values.multimedia.length; i++) {
+    archivos = archivos.concat({
+      id: await sendArchivo(values.multimedia[i]),
+      nombre: values.multimedia[i].name, 
+      weight: values.multimedia[i].size, 
+    })
   }
 
-  /*formValues.append("departamento", values.departamento);
+  const formValues = new FormData();
+  formValues.append("departamento", values.departamento);
   formValues.append("contenido", values.contenido);
-  //formValues.append("archivos", await sendFiles(values.multimedia));
+  formValues.append("archivos", JSON.stringify(archivos));
 
   try {
     const response = await fetch(url, {
@@ -62,5 +32,27 @@ export async function sendNoticia(url, values) {
     return jsonData;
   } catch (error) {
     return error.message;
-  }*/
+  }
+}
+
+export async function eliminarNoticia(idNoticia) {
+  
+  const formValues = new FormData();
+  formValues.append("idNoticia", idNoticia);
+
+  try {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/noticias', {
+      method: "DELETE",
+      body: formValues,
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al eliminar noticia");
+    }
+    const jsonData = await response.json();
+    console.log(jsonData)
+    return jsonData;
+  } catch (error) {
+    return error.message;
+  }
 }

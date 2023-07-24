@@ -2,11 +2,15 @@
 import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
 import { sendNoticia } from "../services/noticias-service.js";
-import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Card, FloatingLabel, Form, Spinner } from 'react-bootstrap';
+import { useEffect, useState } from "react";
 
 export const Publicar = () => {
   //const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
   const { data, isLoading }  = mockDepartamentos();
+  const [charging, setCharging] = useState(false);
+  const [error, setError] = useState(false);
+  const [result, setResult] = useState();
 
   const { values, handleChange } = useForm({
     departamento: '',
@@ -14,9 +18,21 @@ export const Publicar = () => {
     multimedia: []
   });
 
+  useEffect(() => {
+    setError(false);
+  }, [values])
+
+  useEffect(() => {
+    if(result && result.noticia.id){
+      window.location.reload();
+    }
+  }, [result])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(await sendNoticia(process.env.REACT_APP_API_URL + '/chunks', values));
+    setCharging(true);
+    setResult(await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values));
+    setCharging(false);
   };
 
   return (
@@ -54,7 +70,23 @@ export const Publicar = () => {
           <Form.Control type="file" name="multimedia" id="multimedia" multiple onChange={handleChange}/>
         </Form.Group>
         <div className="d-grid gap-2">
-          <Button as="input" variant="info" type="submit" value="Publicar" />
+          {
+            !error ? 
+              !charging ? 
+              <Button as="input" variant="info" type="submit" value="Publicar" />
+              : <Button variant="info"> 
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="md"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="visually-hidden">Cargando...</span>
+              </Button>
+            :
+            <Button as="input" variant="danger" type="submit" value="Error" />
+          }
         </div>
       </Form>
       </Card.Body>

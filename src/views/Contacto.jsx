@@ -1,8 +1,14 @@
-import { Accordion, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Accordion, Button, Col, Container, Form, Row, Image } from "react-bootstrap";
 import useForm from "../hooks/useForm.js";
 import { Layout } from "./Layout.jsx";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext.js";
+import banner from "../assets/images/contacto.jpg"
+import '../assets/styles/contacto.css'
 
 export const Contacto = () => {
+  const {valid} = useContext(UserContext);
+
   const { values, handleChange } = useForm({
     nombre: "",
     apellido: "",
@@ -20,6 +26,10 @@ export const Contacto = () => {
 
   return (
     <Layout pagina={"Contacto"}>
+      <Image src={banner}
+      className="animate__animated animate__fadeIn w-100" fluid/>
+      <h1 className="titulo-contacto">CONTACTO</h1>
+      <p className="subtitulo-contacto">Estamos para ayudarle</p>
       <Container>
         <Row>
           <Col lg={5} className="px-4">
@@ -53,6 +63,13 @@ export const Contacto = () => {
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
+            {
+              valid ?  
+                <Button variant="warning" className="mt-3">
+                  <i className="bi bi-tools"></i>{' '}Editar
+                </Button>
+                : ''
+              }
           </Col>
           <Col lg={7}>
             <h3 className="my-3">Formulario de Contacto</h3>
@@ -66,6 +83,7 @@ export const Contacto = () => {
                       id="nombre"
                       onChange={handleChange}
                       required
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -77,6 +95,7 @@ export const Contacto = () => {
                       id="apellido"
                       onChange={handleChange}
                       required
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -90,6 +109,7 @@ export const Contacto = () => {
                       id="municipio"
                       onChange={handleChange}
                       required
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -100,6 +120,7 @@ export const Contacto = () => {
                       name="comunidad"
                       id="comunidad"
                       onChange={handleChange}
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -113,6 +134,7 @@ export const Contacto = () => {
                       name="correo"
                       id="correo"
                       onChange={handleChange}
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -124,6 +146,7 @@ export const Contacto = () => {
                       id="telefono"
                       onChange={handleChange}
                       required
+                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -138,6 +161,7 @@ export const Contacto = () => {
                   id="mensaje"
                   onChange={handleChange}
                   required
+                  disabled={valid}
                 />
               </Form.Group>
               <Button
@@ -145,6 +169,7 @@ export const Contacto = () => {
                 variant="info"
                 type="submit"
                 value="Enviar Formulario"
+                disabled={valid}
               />
             </Form>
           </Col>
