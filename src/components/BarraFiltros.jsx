@@ -13,7 +13,8 @@ export const BarraFiltros = ({activeFilter}) => {
         {
           !isLoading &&
           data.map(depto => (
-            <ListGroup.Item key={depto._id} variant='info' action href={`/noticias/${depto._id}/1`} active={depto._id === activeFilter}>
+            <ListGroup.Item key={depto._id} variant='info' action 
+            href={depto._id !== activeFilter ? `/noticias/${depto._id}/1` : `/noticias/1`} active={depto._id === activeFilter}>
               {depto.nombre}
             </ListGroup.Item>
           ))

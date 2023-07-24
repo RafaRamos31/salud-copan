@@ -1,16 +1,17 @@
-import { RecursoDocumento } from "./RecursoDocumento"
+import { Container } from 'react-bootstrap'
+import { Documento } from '../components/multimedia/Documento'
 
 export const ContainerDocumentos = ({isLoading, documentos}) => {
   if(isLoading){
     return <p>Cargando datos...</p>
   }
   return (
-    <div className="contenedor-documentos d-grid">
+    <Container className="d-flex flex-wrap w-100">
       {
         documentos.map((documento) => (
-          <RecursoDocumento key={documento._id} documento={documento} />
+          <Documento key={documento._id} archivo={documento}/>
         )) 
       }
-    </div>
+    </Container>
   )
 }

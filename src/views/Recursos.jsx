@@ -1,14 +1,20 @@
 import { Button, Container, Modal, Tab, Tabs } from "react-bootstrap";
-import { mockArchivos } from "../services/mock-service.js";
+//import { mockArchivos } from "../services/mock-service.js";
 import { ContainerDocumentos } from "../components/ContainerDocumentos.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SubirArchivo } from "./SubirArchivo.jsx";
 import useTitle from "../hooks/useTitle.js";
 import { Layout } from "./Layout.jsx";
+import { UserContext } from "../contexts/UserContext.js";
+import useFetch from "../hooks/useFetch.js";
+import '../assets/styles/recursos.css'
 
 export const Recursos = () => {
   useTitle("Recursos");
-  const {data, isLoading} = mockArchivos();
+
+  const { valid } = useContext(UserContext)
+
+  const {data, isLoading} = useFetch(process.env.REACT_APP_API_URL + '/archivos/1/Documento');
 
   const [show, setShow] = useState(false);
 
@@ -17,11 +23,16 @@ export const Recursos = () => {
 
   return (
     <Layout pagina={"Recursos"}>
-      <Button variant="info" onClick={handleShow}>
-              Publicar
-          </Button>
       <main>
-        <h1>Recursos Disponibles</h1>
+        <h1 className="titulo-recursos">Recursos Disponibles</h1>
+        {
+          valid && 
+          <div className="d-flex justify-content-center">
+            <Button variant="warning" className="mx-4 my-3 px-4" onClick={handleShow}>
+              <i className="bi bi-tools"></i>{' '}Publicar
+            </Button>
+          </div>
+        }
         <Container>
           <Tabs
             defaultActiveKey="home"

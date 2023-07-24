@@ -49,10 +49,3 @@
 .nav-link:hover{
   color: var(--mp-azul-1);
 }
-
-footer{
-  background-color: var(--mp-gris-2);
-  padding: 1.5rem;
-  margin-top: 1rem;
-  text-align: center;
-}

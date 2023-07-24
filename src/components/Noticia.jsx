@@ -15,7 +15,7 @@ export const Noticia = ({noticia}) => {
   const handleShow = () => setShow(true);
 
   const handleDelete = async () => {
-    const result = await eliminarNoticia(noticia._id)
+    await eliminarNoticia(noticia._id)
     window.location.reload();
   }
 
@@ -36,7 +36,7 @@ export const Noticia = ({noticia}) => {
         <p>
           {noticia.contenido}
         </p>
-        <div className="container-multimedia">
+        <div className="container-multimedia d-flex justify-content-around">
         {
           noticia.archivos.length > 1 && noticia.archivos.every((archivo) => archivo.tipo === "Imagen") 
           ? <div> Galeria </div>

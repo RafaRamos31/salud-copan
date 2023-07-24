@@ -1,5 +1,3 @@
-//import { sendFiles } from "../controllers/google-controller.js";
-
 import { sendArchivo } from "./archivos-service.js";
 
 export async function sendNoticia(url, values) {

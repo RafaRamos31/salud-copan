@@ -1,5 +1,6 @@
 import { Button, Card, Col, Container, Row, Modal } from 'react-bootstrap'
 import { useState } from "react"
+import '../../assets/styles/documento.css'
 
 export const Documento = ({archivo}) => {
 
@@ -12,17 +13,15 @@ export const Documento = ({archivo}) => {
     <>
     <Container>
       <Row>
-          <Col sm={0} md={4}>
-          </Col>
           <Col>
-            <Card>
+            <Card className='my-2 documento'>
               <Card.Header>{archivo.nombre}</Card.Header>
-              <Card.Body className='d-flex justify-content-center'>
+              <Card.Body className='d-flex justify-content-around'>
                 <Button variant='info' onClick={handleShow}>
-                  <i className="bi bi-eye-fill"></i>
+                  <i className="bi bi-eye-fill"></i>{' '}Vista Previa
                 </Button>
                 <Button variant='info' href={archivo.descargar} target='_blank'>
-                  <i className="bi bi-download"></i>
+                  <i className="bi bi-download"></i>{' '}Descargar
                 </Button>
               </Card.Body>
               <Card.Footer>

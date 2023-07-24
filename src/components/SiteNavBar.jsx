@@ -39,7 +39,7 @@ export const SiteNavBar = () => {
             }
             <Link to={'/noticias'} className="nav-link">Noticias</Link>
             <Link to={'/recursos'} className="nav-link">Recursos</Link>
-            <Link to={'/sitios'} className="nav-link">Sitios de Interés</Link>
+            {/*<Link to={'/sitios'} className="nav-link">Sitios de Interés</Link>*/}
             <Link to={'/contacto'} className="nav-link">Contacto</Link>
             {
               valid ? 

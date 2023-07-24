@@ -165,6 +165,7 @@ export const Contacto = () => {
                 />
               </Form.Group>
               <Button
+                className="mb-3"
                 as="input"
                 variant="info"
                 type="submit"

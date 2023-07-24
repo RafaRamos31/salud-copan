@@ -18,7 +18,7 @@ export const Home = () => {
           <p id="text-departamento" className="animate__animated animate__fadeInUp">Departamento de {data.departamento}</p>
         </section>
 
-        <section className="sobre-nosotros">
+        <section className="sobre-nosotros" id="sobre-nosotros">
           <h2 className="sub-title">¿Quiénes Somos?</h2>
           <Card>
             <Card.Body className="nosotros-container">
@@ -50,7 +50,7 @@ export const Home = () => {
           </Card>
         </section>
 
-        <section className="mision-vision">
+        <section className="mision-vision" id="mision-vision">
           <h2 className="sub-title">Misión y Visión</h2>
           <Row>
             <Col md={6}>
@@ -80,14 +80,14 @@ export const Home = () => {
           </Row>
         </section>
 
-        <section className="organigrama">
+        <section className="organigrama" id="organigrama">
           <h2 className="sub-title">Organigrama</h2>
           <div className="media-container">
             <Image src={organigrama} fluid thumbnail/>
           </div>
         </section>
 
-        <section className="valores">
+        <section className="valores" id="valores">
           <h2 className="sub-title">Nuestros Valores</h2>
           <Card>
             <Card.Body className="nosotros-container">
@@ -102,7 +102,7 @@ export const Home = () => {
           </Card>
         </section>
 
-        <section className="cobertura">
+        <section className="cobertura" id="cobertura">
           <h2 className="sub-title">Cobertura</h2>
           <div className="media-container">
             <iframe title={data.departamento} src={data["enlace-mapa"]} 
