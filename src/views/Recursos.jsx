@@ -1,5 +1,5 @@
 import { Button, Container, Modal, Tab, Tabs } from "react-bootstrap";
-//import { mockArchivos } from "../services/mock-service.js";
+import { mockImagenes } from "../services/mock-service.js";
 import { ContainerDocumentos } from "../components/ContainerDocumentos.jsx";
 import { useContext, useState } from "react";
 import { SubirArchivo } from "./SubirArchivo.jsx";
@@ -8,6 +8,7 @@ import { Layout } from "./Layout.jsx";
 import { UserContext } from "../contexts/UserContext.js";
 import useFetch from "../hooks/useFetch.js";
 import '../assets/styles/recursos.css'
+import { ContainerImagenes } from "../components/ContainerImagenes.jsx";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -15,6 +16,8 @@ export const Recursos = () => {
   const { valid } = useContext(UserContext)
 
   const {data, isLoading} = useFetch(process.env.REACT_APP_API_URL + '/archivos/1/Documento');
+  //const {data, isLoading} = mockArchivos();
+  const {data: dataImages, isLoading: loadingImages} = mockImagenes();
 
   const [show, setShow] = useState(false);
 
@@ -45,7 +48,7 @@ export const Recursos = () => {
             </Tab>
             <Tab eventKey="profile" title="Imagenes">
               <Container>
-
+                {!loadingImages && <ContainerImagenes imagenes={dataImages} />} 
               </Container>
             </Tab>
           </Tabs>

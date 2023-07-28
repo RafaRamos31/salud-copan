@@ -125,3 +125,9 @@ b{
     font-size: 1.5rem;
   }
 }
+
+.config-button{
+  position: absolute;
+  top: 80px;
+  right: 10px;
+}

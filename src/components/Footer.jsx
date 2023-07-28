@@ -2,7 +2,7 @@ export const Footer = () => {
   return (
     <footer
           className="text-center text-lg-start text-white mt-5"
-          style={{backgroundColor: "#929fba"}}
+          style={{backgroundColor: "var(--mp-azul-3)"}}
           >
     <div className="container p-4 pb-0">
       <div className="">
@@ -88,7 +88,7 @@ export const Footer = () => {
     </div>
     <div
          className="text-center p-3"
-         style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}
+         style={{backgroundColor: "var(--mp-rojo-1)"}}
          >
       © 2023 Copyright:
       <br /><a className="text-white" href="https://transparencia.se.gob.hn/departamentales/departamento/4/">Departametal de Salud de Copán

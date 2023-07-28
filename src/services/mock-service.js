@@ -155,38 +155,131 @@ export function mockDepartamentos(){
 }
 
 export function mockArchivos() {
+  console.log('fetch')
   return {
     data: [
       {
-          "_id": "648c89a48b9c471d47f0e56e",
-          "tipoMultimedia": "Documento",
-          "enlaces": [
-              "https://drive.google.com/file/d/1oL6boFyP1P-C3-sPq2-ivYm6YxfdnI6f/view"
-          ],
+          "_id": "64bee41cc6c798e2d38652ce",
+          "nombre": "Block Hoja de Compromiso de 9 a 11 meses-01.pdf",
+          "tipo": "Documento",
+          "docType": "pdf",
+          "tamano": 546633,
+          "fileId": "1dnsBKOKrjtgf9JGFX_bFxnBX-cPrGqZR",
+          "enlace": "https://drive.google.com/file/d/1dnsBKOKrjtgf9JGFX_bFxnBX-cPrGqZR/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1dnsBKOKrjtgf9JGFX_bFxnBX-cPrGqZR&export=download",
+          "totalDescargas": 0,
           "__v": 0
       },
       {
-          "_id": "648c7b0686d8783bfec98504",
-          "tipoMultimedia": "Documento",
-          "enlaces": [
-              "https://drive.google.com/file/d/1mzD3tu2DgEXdLt51k8OPWdQqM8HNbMHg/view"
-          ],
+          "_id": "64bee41cc6c798e2d38652d4",
+          "nombre": "Hoja Niño Enfermo Block.pdf",
+          "tipo": "Documento",
+          "docType": "word",
+          "tamano": 725086,
+          "fileId": "1msP85KX_KON3md72y95BkFSAfybenRrk",
+          "enlace": "https://drive.google.com/file/d/1msP85KX_KON3md72y95BkFSAfybenRrk/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1msP85KX_KON3md72y95BkFSAfybenRrk&export=download",
+          "totalDescargas": 0,
           "__v": 0
       },
       {
-          "_id": "648b4aa006f7a6994e15f7df",
-          "tipoMultimedia": "Documento",
-          "enlaces": [
-              "https://drive.google.com/file/d/1j-Bj_URE4WVEw81h2Rm-LONwnHDhs1Qj/view"
-          ],
+          "_id": "64bee41cc6c798e2d38652d6",
+          "nombre": "Tarjeta Integral de la Niña.pdf",
+          "tipo": "Documento",
+          "docType": "excel",
+          "tamano": 652563,
+          "fileId": "13WVK-AoJj55CEAQaA3cz7E9bqSoidyCw",
+          "enlace": "https://drive.google.com/file/d/13WVK-AoJj55CEAQaA3cz7E9bqSoidyCw/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=13WVK-AoJj55CEAQaA3cz7E9bqSoidyCw&export=download",
+          "totalDescargas": 0,
           "__v": 0
       },
       {
-          "_id": "648b485f858728bf9dd819bf",
-          "tipoMultimedia": "Documento",
-          "enlaces": [
-              "https://drive.google.com/file/d/1S9cyM2ssSp9cctjHFvk2gEBp2V4v2gmZ/view"
-          ],
+          "_id": "64bee41d5cd5b5a8f817331c",
+          "nombre": "Block Hoja de Compromiso de 0 a 6 meses-01.pdf",
+          "tipo": "Documento",
+          "docType": "ppt",
+          "tamano": 483261,
+          "fileId": "1P74N942RMRhBSNKc6QlbtLep9HWdG0qD",
+          "enlace": "https://drive.google.com/file/d/1P74N942RMRhBSNKc6QlbtLep9HWdG0qD/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1P74N942RMRhBSNKc6QlbtLep9HWdG0qD&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      },
+      {
+          "_id": "64beea317b014de7d64e9e66",
+          "nombre": "Hoja de Visita Domiciliaria.pdf",
+          "tipo": "Documento",
+          "docType": "pdf",
+          "tamano": 1755654,
+          "fileId": "18s9aBII6j5FOWk2gwMW4D9_n0-ROjBWf",
+          "enlace": "https://drive.google.com/file/d/18s9aBII6j5FOWk2gwMW4D9_n0-ROjBWf/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=18s9aBII6j5FOWk2gwMW4D9_n0-ROjBWf&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      }
+  ],
+    isLoading: false,
+    error: null,
+  };
+}
+
+export function mockImagenes() {
+  return {
+    data: [
+      {
+          "_id": "64bee41cc6c798e2d38652d0",
+          "nombre": "Lamina Registro Diario Atencion Niño - a-01.jpg",
+          "tipo": "Imagen",
+          "tamano": 613322,
+          "fileId": "11o4vpBpf57rn0Vm61xaMm-7LoEOnk6ER",
+          "enlace": "https://drive.google.com/file/d/11o4vpBpf57rn0Vm61xaMm-7LoEOnk6ER/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=11o4vpBpf57rn0Vm61xaMm-7LoEOnk6ER&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      },
+      {
+          "_id": "64bee41cc6c798e2d38652d2",
+          "nombre": "Registro de Atencion Diario-01.jpg",
+          "tipo": "Imagen",
+          "tamano": 616313,
+          "fileId": "1MWJbYg3KvOZzQtF7-TtzW1iRS3-fOsIT",
+          "enlace": "https://drive.google.com/file/d/1MWJbYg3KvOZzQtF7-TtzW1iRS3-fOsIT/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1MWJbYg3KvOZzQtF7-TtzW1iRS3-fOsIT&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      },
+      {
+          "_id": "64bfcdd9dc360937f6440eeb",
+          "nombre": "100396806.jpg",
+          "tipo": "Imagen",
+          "tamano": 487967,
+          "fileId": "1DJaKChqQOcbiITriB8taEFQ9WPkLpEen",
+          "enlace": "https://drive.google.com/file/d/1DJaKChqQOcbiITriB8taEFQ9WPkLpEen/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1DJaKChqQOcbiITriB8taEFQ9WPkLpEen&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      },
+      {
+          "_id": "64bfce9c2d06f35baa0d789a",
+          "nombre": "Lamina Registro Diario Atencion Niño - a-01.jpg",
+          "tipo": "Imagen",
+          "tamano": 613322,
+          "fileId": "1KXTGrOavpwIba0RMFpZ20slwuob6mInP",
+          "enlace": "https://drive.google.com/file/d/1KXTGrOavpwIba0RMFpZ20slwuob6mInP/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1KXTGrOavpwIba0RMFpZ20slwuob6mInP&export=download",
+          "totalDescargas": 0,
+          "__v": 0
+      },
+      {
+          "_id": "64bfceb82d06f35baa0d789f",
+          "nombre": "Lamina Ampliada Tabla de Peso Minimo lleva Cambios-01.jpg",
+          "tipo": "Imagen",
+          "tamano": 1638896,
+          "fileId": "1xlj05rIzZHby2sLjSBehtrp_XJFQS-xy",
+          "enlace": "https://drive.google.com/file/d/1xlj05rIzZHby2sLjSBehtrp_XJFQS-xy/view",
+          "descargar": "https://drive.google.com/u/0/uc?id=1xlj05rIzZHby2sLjSBehtrp_XJFQS-xy&export=download",
+          "totalDescargas": 0,
           "__v": 0
       }
   ],

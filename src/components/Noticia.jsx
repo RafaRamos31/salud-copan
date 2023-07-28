@@ -21,7 +21,7 @@ export const Noticia = ({noticia}) => {
 
   return (
     <>
-    <Card className="mb-4 mr-3">
+    <Card className="mb-4 mr-3 noticia">
       <Card.Header className="encabezado">
         <Row>
           <Col sm={8}>

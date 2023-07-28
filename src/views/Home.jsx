@@ -1,21 +1,46 @@
 import { Layout } from "./Layout.jsx";
-import { Card, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, Row, Modal } from "react-bootstrap";
 import fondo from "../assets/images/fondo-main.jpg"
 import organigrama from "../assets/images/organigrama.jpg"
 import lider from "../assets/images/img-lider.jpg"
 import nosotros from "../assets/images/img-nosotros.jpg"
 import data from "../data/info-pagina.json"; 
 import '../assets/styles/home.css';
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../contexts/UserContext.js";
+import { Configuracion } from "./Configuracion.jsx";
+import useFetch from "../hooks/useFetch.js";
 
 export const Home = () => {
-  return (
+  const {valid} = useContext(UserContext);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [values, setValues] = useState({});
+  const { data: mongoData, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+
+  useEffect(() => {
+    if(mongoData){
+      setValues(mongoData)
+    }
+  }, [mongoData, isLoading])
+  
+  return(
+    <>
     <Layout pagina={data.area}>
       <Container>
         <section>
+          {
+              valid ? 
+              <Button variant="warning" className="config-button" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Informacion General</Button>
+              : ''
+          }
           <Image src={fondo}
           className="animate__animated animate__fadeIn" id="main-image" fluid/>
-          <h1 id="main-title" className="animate__animated animate__fadeInUp">Proyecto Avanzando la Nutrición en Honduras</h1>
-          <p id="text-departamento" className="animate__animated animate__fadeInUp">Departamento de {data.departamento}</p>
+          <h1 id="main-title" className="animate__animated animate__fadeInUp">{values.titulo}</h1>
+          <p id="text-departamento" className="animate__animated animate__fadeInUp">{values.subtitulo}</p>
         </section>
 
         <section className="sobre-nosotros" id="sobre-nosotros">
@@ -25,7 +50,7 @@ export const Home = () => {
               <Row>
               <Col md={9}>
                 <p className="text-nosotros">
-                  {data["quienes-somos"]}
+                  {values.nosotros}
                 </p>
               </Col>
               <Col md={3}>
@@ -39,10 +64,10 @@ export const Home = () => {
               </Col>
               <Col md={9}>
                 <blockquote className="text-fundador">
-                  {data.mensaje}
+                  {values.mensaje}
                 </blockquote>
                 <p className="autor">
-                  {data.autor}
+                  {values.autor}
                 </p>
               </Col>
             </Row>
@@ -60,7 +85,7 @@ export const Home = () => {
                     <i className="bi bi-book text-icon"></i>Misión
                   </div>
                   <div className="content">
-                    {data.mision}
+                    {values.mision}
                   </div>
                 </Card.Body>
               </Card>
@@ -72,7 +97,7 @@ export const Home = () => {
                     <i className="bi bi-search text-icon"></i>Visión
                   </div>
                   <div className="content">
-                    {data.vision}
+                    {values.vision}
                   </div>
                 </Card.Body>
               </Card>
@@ -105,11 +130,15 @@ export const Home = () => {
         <section className="cobertura" id="cobertura">
           <h2 className="sub-title">Cobertura</h2>
           <div className="media-container">
-            <iframe title={data.departamento} src={data["enlace-mapa"]} 
+            <iframe title={values.departamento} src={values.urlMapa} 
             width="600" height="480"></iframe>
           </div>
         </section>
       </Container>
     </Layout>
+    <Modal show={show} onHide={handleClose} size="lg">
+      <Configuracion data={values}/>
+    </Modal>
+    </>
   );
 }

@@ -1,16 +1,8 @@
-import { sendArchivo } from "./archivos-service.js";
+import { enviarArchivos } from "./archivos-service.js";
 
 export async function sendNoticia(url, values) {
   
-  let archivos = []
-
-  for (let i = 0; i < values.multimedia.length; i++) {
-    archivos = archivos.concat({
-      id: await sendArchivo(values.multimedia[i]),
-      nombre: values.multimedia[i].name, 
-      weight: values.multimedia[i].size, 
-    })
-  }
+  const archivos = await enviarArchivos(values.multimedia)
 
   const formValues = new FormData();
   formValues.append("departamento", values.departamento);

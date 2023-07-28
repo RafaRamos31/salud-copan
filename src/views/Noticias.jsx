@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { ContainerNoticias } from "../components/ContainerNoticias.jsx";
@@ -9,21 +9,22 @@ import { BarraFiltros } from "../components/BarraFiltros.jsx";
 import useFetch from "../hooks/useFetch.js";
 import "../assets/styles/noticias.css";
 import { Layout } from "./Layout.jsx";
+import { UserContext } from "../contexts/UserContext.js";
 
 export const Noticias = () => {
   const { idDepto, index } = useParams();
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/noticias/${index}${idDepto ? '/' + idDepto : ''}`);
   //const { data, isLoading } = mockNoticias();
+
   const [show, setShow] = useState(false);
-
-  const valid = localStorage.getItem("user-id");
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
+  const {valid} = useContext(UserContext);
+  
   return (
     <Layout pagina={"Noticias"}>
-      <Row>
+      <Row className="w-100">
         <Col md={3}>
           <BarraFiltros activeFilter={idDepto} />
           {
@@ -34,7 +35,7 @@ export const Noticias = () => {
             : ''
           }
         </Col>
-        <Col md={9} className="px-0">
+        <Col md={9}  className="px-0">
           <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} />
           {!isLoading && <ContainerNoticias noticias={data} />}
           <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} />

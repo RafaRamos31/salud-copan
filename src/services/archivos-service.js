@@ -1,5 +1,46 @@
-export async function sendArchivo(file) {
 
+export async function enviarArchivos(files){
+  let archivos = []
+
+  for (let i = 0; i < files.length; i++) {
+    archivos = archivos.concat({
+      id: await sendArchivo(files[i]),
+      nombre: files[i].name, 
+      weight: files[i].size, 
+    })
+  }
+
+  return archivos;
+}
+
+export async function publicarArchivos(files){
+  const sendData = await enviarArchivos(files)
+
+  sendData.forEach(async file => {
+    const formData = new FormData();
+    formData.append('id', file.id);
+    formData.append('nombre', file.nombre);
+    formData.append('weight', file.weight);
+
+    // Realiza la solicitud al backend
+    try {
+      const response = await fetch(process.env.REACT_APP_API_URL + '/archivos', {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al publicar noticia");
+      }
+      const createResponse = await response.json();
+      return createResponse
+    } catch (error) {
+      throw new Error("Error al publicar la noticia: " + error);
+    }
+  })
+}
+
+export async function sendArchivo(file) {
   //1. Crear el archivo vacio y obtener el ID
   const createData = new FormData();
   createData.append('fileName', file.name);
@@ -31,7 +72,7 @@ export async function sendArchivo(file) {
 
 const sendAllChunks = async (id, file) => {
 
-  const chunkSize = 2 * 1024 * 1024; // Tamaño del fragmento en bytes
+  const chunkSize = 2 * 1024 * 1024; //Tamaño del fragmento en bytes
   let start = 0;
   let end = chunkSize;
   let currentChunk = 1;
@@ -70,4 +111,10 @@ const sendAllChunks = async (id, file) => {
     end = Math.min(end + chunkSize, file.size);
     currentChunk++;
   }
+}
+
+export async function aumentarDescarga(fileId){
+  fetch(process.env.REACT_APP_API_URL + '/archivos/' + fileId, {
+    method: "PUT"
+  });
 }

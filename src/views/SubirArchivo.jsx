@@ -1,5 +1,5 @@
 import useForm from "../hooks/useForm.js";
-import { sendNoticia } from "../services/noticias-service.js";
+import { publicarArchivos } from "../services/archivos-service.js";
 import { Button, Card, Form } from 'react-bootstrap';
 
 export const SubirArchivo = () => {
@@ -9,7 +9,7 @@ export const SubirArchivo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values));
+    console.log(await publicarArchivos(values.multimedia));
   };
 
   return (

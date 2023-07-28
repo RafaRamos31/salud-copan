@@ -28,6 +28,10 @@
   box-sizing: border-box;
 }
 
+.navbar{
+  border-bottom: 2px solid black;
+}
+
 .navbar-collapse{
   justify-content: flex-end;
 }
@@ -46,6 +50,6 @@
   font-size: 3rem;
 }
 
-.nav-link:hover{
-  color: var(--mp-azul-1);
+.nav-link.active{
+  background-color: var(--mp-azul-4);
 }

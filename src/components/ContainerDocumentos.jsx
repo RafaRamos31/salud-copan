@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import { Documento } from '../components/multimedia/Documento'
 
 export const ContainerDocumentos = ({isLoading, documentos}) => {
@@ -6,12 +6,12 @@ export const ContainerDocumentos = ({isLoading, documentos}) => {
     return <p>Cargando datos...</p>
   }
   return (
-    <Container className="d-flex flex-wrap w-100">
+    <Row className='w-100 mx-auto' sm={1} md={2} lg={3}>
       {
         documentos.map((documento) => (
           <Documento key={documento._id} archivo={documento}/>
         )) 
       }
-    </Container>
+    </Row>
   )
 }
