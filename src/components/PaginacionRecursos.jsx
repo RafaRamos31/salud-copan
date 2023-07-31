@@ -1,20 +1,28 @@
 import { Container, Pagination } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-//import { mockCountNoticias } from "../services/mock-service";
 
-export const PaginacionNoticias = ({idDepto = '', index, setIndex}) => {
+export const PaginacionRecursos = ({tipo, index, setIndex}) => {
+  const {data, isLoading} = useFetch(`${process.env.REACT_APP_API_URL}/countArchivos/${tipo === null ? 'Documento' : tipo}`);
 
-  const {data, isLoading} = useFetch(`${process.env.REACT_APP_API_URL}/countnoticias/${idDepto === null ? '' : idDepto}`);
-  //const {data, isLoading} = mockCountNoticias();
   const [pages, setPages] = useState(1);
+
+  const [entradas, setEntradas] = useState(6)
+  useEffect(() => {
+    if(tipo === 'Documento'){
+      setEntradas(6)
+    }
+    else{
+      setEntradas(9)
+    }
+  }, [tipo])
 
   useEffect(() => {
     if(data){
-      let totalPages = Math.ceil(data.filecount/5);
+      let totalPages = Math.ceil(data/entradas);
       setPages(totalPages);
     }
-  }, [isLoading, data])
+  }, [isLoading, data, entradas])
   
   const total = pages;
   let numbers = [1, 2, 3, 4, 5];
@@ -32,7 +40,7 @@ export const PaginacionNoticias = ({idDepto = '', index, setIndex}) => {
   }
 
   return (
-    <Container fluid className="d-flex mt-3">
+    <Container fluid className="d-flex mt-3 justify-content-center align-items-center">
       <Pagination>
         <Pagination.First disabled={ index === 1 } onClick={() => setIndex(1)}/>
         <Pagination.Prev disabled={ index === 1 } onClick={() => setIndex(index-1)}/>

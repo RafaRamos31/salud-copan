@@ -3,37 +3,56 @@ import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
 import { sendNoticia } from "../services/noticias-service.js";
 import { Button, Card, FloatingLabel, Form, Spinner } from 'react-bootstrap';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { RefetchContext } from "../contexts/RefetchContext.js";
+import { ToastContext } from "../contexts/ToastContext.js";
 
-export const Publicar = () => {
-  //const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
+export const Publicar = ({handleClose}) => {
+
   const { data, isLoading }  = mockDepartamentos();
-  const [charging, setCharging] = useState(false);
-  const [error, setError] = useState(false);
-  const [result, setResult] = useState();
 
+  //Contexts
+  const { setRefetch } = useContext(RefetchContext)
+  const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
+
+  //Formulario
   const { values, handleChange } = useForm({
     departamento: '',
     contenido: '',
     multimedia: []
   });
 
-  useEffect(() => {
-    setError(false);
-  }, [values])
+  //Boton de carga
+  const [charging, setCharging] = useState(false);
 
-  useEffect(() => {
-    if(result && result.noticia.id){
-      window.location.reload();
-    }
-  }, [result])
+
+  //Subir noticia
+  const [correct, setCorrect] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setCharging(true);
-    setResult(await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values));
-    setCharging(false);
+    setCharging(true)
+    const result = await sendNoticia(process.env.REACT_APP_API_URL + '/noticias', values)
+    setCorrect(result)
+    handleClose()
+    setCharging(false)
   };
+
+  useEffect(() => {
+    if(correct === true){
+      setRefetch(true)
+      actualizarTitulo('Publicación registrada')
+      setContent('La publicación se ha guardado con exito.')
+      setVariant('info')
+      setShowToast(true)
+    }
+    if(correct === false){
+      actualizarTitulo('Error al registrar publicación')
+      setContent('Ocurrió un error al intentar subir la publicación, intente de nuevo.')
+      setVariant('danger')
+      setShowToast(true)
+    }
+  }, [correct])
 
   return (
     <Card>
@@ -71,21 +90,18 @@ export const Publicar = () => {
         </Form.Group>
         <div className="d-grid gap-2">
           {
-            !error ? 
-              !charging ? 
-              <Button as="input" variant="info" type="submit" value="Publicar" />
-              : <Button variant="info"> 
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="md"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Cargando...</span>
-              </Button>
-            :
-            <Button as="input" variant="danger" type="submit" value="Error" />
+            !charging ? 
+            <Button as="input" variant="info" type="submit" value="Publicar" />
+            : <Button variant="info"> 
+              <Spinner
+                as="span"
+                animation="border"
+                size="md"
+                role="status"
+                aria-hidden="true"
+              />
+              <span className="visually-hidden">Cargando...</span>
+            </Button>
           }
         </div>
       </Form>

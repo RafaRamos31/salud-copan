@@ -15,7 +15,6 @@ export async function enviarArchivos(files){
 
 export async function publicarArchivos(files){
   const sendData = await enviarArchivos(files)
-
   sendData.forEach(async file => {
     const formData = new FormData();
     formData.append('id', file.id);
@@ -24,20 +23,15 @@ export async function publicarArchivos(files){
 
     // Realiza la solicitud al backend
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + '/archivos', {
+      await fetch(process.env.REACT_APP_API_URL + '/archivos', {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) {
-        throw new Error("Error al publicar noticia");
-      }
-      const createResponse = await response.json();
-      return createResponse
     } catch (error) {
-      throw new Error("Error al publicar la noticia: " + error);
+      throw new Error("Error al publicar el archivo: " + error);
     }
   })
+  return true
 }
 
 export async function sendArchivo(file) {
@@ -118,3 +112,17 @@ export async function aumentarDescarga(fileId){
     method: "PUT"
   });
 }
+
+export async function eliminarArchivo(fileId){
+  const data = new FormData();
+
+  data.append('idArchivo', fileId)
+
+  const result = await fetch(process.env.REACT_APP_API_URL + '/archivos', {
+    method: "DELETE",
+    body: data
+  });
+
+  return result.ok;
+}
+

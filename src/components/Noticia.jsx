@@ -2,21 +2,51 @@ import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import { getDateString } from "../services/stringFormatter";
 import { Departamento } from "./Departamento";
 import { ContainerMultimedia } from "./multimedia/ContainerMultimedia";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { eliminarNoticia } from "../services/noticias-service";
+import { ToastContext } from "../contexts/ToastContext";
 
 export const Noticia = ({noticia}) => {
+  //Contexts
   const {valid} = useContext(UserContext)
+  const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
 
+  //Visibilidad del componente
+  const [visible, setVisible] = useState(true);
+
+  //Modal Eliminar
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  //Eliminar noticia
+  const [correct, setCorrect] = useState(null);
+
   const handleDelete = async () => {
-    await eliminarNoticia(noticia._id)
-    window.location.reload();
+    const result = await eliminarNoticia(noticia._id)
+    setCorrect(result)
+    setVisible(false)
+  }
+
+  useEffect(() => {
+    if(correct === true){
+      actualizarTitulo('Publicación Eliminada')
+      setContent('Se ha eliminado con exito la publicación seleccionada.')
+      setVariant('info')
+      setShowToast(true)
+    }
+    if(correct === false){
+      actualizarTitulo('Error al Eliminar Publicación')
+      setContent('Ocurrió un error al tratar de eliminar la publicación, intente de nuevo.')
+      setVariant('danger')
+      setShowToast(true)
+    }
+  }, [correct])
+
+
+  if(!visible){
+    return null
   }
 
   return (
@@ -56,15 +86,15 @@ export const Noticia = ({noticia}) => {
     </Card>
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Eliminar Noticia</Modal.Title>
+          <Modal.Title>Eliminar Publicación</Modal.Title>
         </Modal.Header>
-        <Modal.Body>¿Desea eliminar esta noticia y los archivos incluidos en la misma? Esta accion no puede revertirse.</Modal.Body>
+        <Modal.Body>¿Desea eliminar esta publicación y los archivos incluidos en la misma? Esta acción no puede revertirse.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" className="px-3" onClick={handleClose}>
             Volver
           </Button>
           <Button variant="danger" className="px-3" onClick={handleDelete}>
-            Eliminar noticia
+            Eliminar Publicación
           </Button>
         </Modal.Footer>
       </Modal>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useValidate = (userId) => {
   const [valid, setValid] = useState(false);
+  const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,7 +16,7 @@ const useValidate = (userId) => {
           throw new Error("Error al iniciar sesion");
         }
         const jsonData = await response.json();
-        
+        setUserData(jsonData)
         setValid(jsonData.valid);
         setIsLoading(false);
       } catch (error) {
@@ -27,7 +28,7 @@ const useValidate = (userId) => {
     fetchData();
   }, [userId]);
 
-  return { valid, isLoading, error };
+  return { valid, userData, isLoading, error };
 };
 
 export default useValidate;

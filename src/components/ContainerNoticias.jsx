@@ -1,9 +1,6 @@
 import { Noticia } from "./Noticia"
 
-export const ContainerNoticias = ({isLoading, noticias}) => {
-  if(isLoading){
-    return <p>Cargando datos...</p>
-  }
+export const ContainerNoticias = ({noticias}) => {
   return (
     <div className="contenedor-noticias">
       {

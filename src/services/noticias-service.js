@@ -15,11 +15,8 @@ export async function sendNoticia(url, values) {
       body: formValues,
     });
 
-    if (!response.ok) {
-      throw new Error("Error al enviar noticia:");
-    }
-    const jsonData = await response.json();
-    return jsonData;
+    return response.ok
+
   } catch (error) {
     return error.message;
   }
@@ -36,12 +33,8 @@ export async function eliminarNoticia(idNoticia) {
       body: formValues,
     });
 
-    if (!response.ok) {
-      throw new Error("Error al eliminar noticia");
-    }
-    const jsonData = await response.json();
-    console.log(jsonData)
-    return jsonData;
+    return response.ok
+    
   } catch (error) {
     return error.message;
   }

@@ -6,25 +6,28 @@ import { Contacto } from '../views/Contacto'
 import { Sitios } from '../views/Sitios'
 import { Login } from '../views/Login'
 import { Publicar } from '../views/Publicar'
-import { UserContextProvider } from '../contexts/UserContext'
+import { RefetchContextProvider } from '../contexts/RefetchContext'
+import { ToastContextProvider } from '../contexts/ToastContext'
+import { GestionRoles } from '../views/GestionRoles'
 
 export const MainRouter = () => {
   return (
     <>
-      <UserContextProvider>
+      <RefetchContextProvider>
+      <ToastContextProvider>  
       <Routes>
         <Route index element={<Home />}></Route>
-        <Route path="/noticias" element={<Navigate to="/noticias/1" replace />}/>
-        <Route path="noticias/:index" element={<Noticias />}></Route>
-        <Route path="noticias/:idDepto/:index" element={<Noticias />}></Route>
+        <Route path="noticias" element={<Noticias />}></Route>
         <Route path="contacto" element={<Contacto />}></Route>
         <Route path="recursos" element={<Recursos />}></Route>
         <Route path="sitios" element={<Sitios />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="publicar" element={<Publicar />}></Route>
+        <Route path="admin/roles" element={<GestionRoles />}></Route>
         <Route path="*" element={<Navigate to="/" replace />}/>
       </Routes>
-      </UserContextProvider>
+      </ToastContextProvider>
+      </RefetchContextProvider>
     </>
   )
 }

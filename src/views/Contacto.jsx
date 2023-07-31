@@ -175,7 +175,7 @@ export const Contacto = () => {
             </Form>
           </Col>
         </Row>
-      </Container>
+      </Container>            
     </Layout>
   );
 };
