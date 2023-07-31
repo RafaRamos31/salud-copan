@@ -7,7 +7,7 @@ import banner from "../assets/images/contacto.jpg"
 import '../assets/styles/contacto.css'
 
 export const Contacto = () => {
-  const {valid} = useContext(UserContext);
+  const {valid, userData} = useContext(UserContext);
 
   const { values, handleChange } = useForm({
     nombre: "",
@@ -64,7 +64,7 @@ export const Contacto = () => {
               </Accordion.Item>
             </Accordion>
             {
-              valid ?  
+              (valid && userData.rol !== 'Publish') ?  
                 <Button variant="warning" className="mt-3">
                   <i className="bi bi-tools"></i>{' '}Editar
                 </Button>

@@ -70,7 +70,10 @@ export const SiteNavBar = () => {
                 menuVariant="light"
                 align='end'
               >
-                <NavDropdown.Item href="#action/3.1">Configuracion del Sitio</NavDropdown.Item>
+                {
+                  userData.rol !== 'Publish' ? <NavDropdown.Item href="#action/3.1">Configuracion del Sitio</NavDropdown.Item> : null
+                }
+                
                 {
                   userData.rol === 'Master' ? <NavDropdown.Item><Link to={'/admin/roles'}>Gestión de Roles</Link></NavDropdown.Item> : null
                 }

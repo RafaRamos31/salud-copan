@@ -4,9 +4,22 @@ import useFetch from "../hooks/useFetch";
 import { Layout } from "./Layout";
 import { getDateString } from "../services/stringFormatter";
 import { RegistrarUsuario } from "./RegistrarUsuario";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export const GestionRoles = () => {
+  //Validacion
+  const {valid, userData} = useContext(UserContext);
+  const navigation = useNavigate()
+  useEffect(() => {
+    if(!valid || userData.rol !== 'Master'){
+      navigation('/')
+    }
+
+  }, [valid, userData, navigation])
+  
+
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/admin/userlist');
 
   //Modal registro

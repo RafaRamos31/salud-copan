@@ -12,7 +12,7 @@ import { Configuracion } from "./Configuracion.jsx";
 import useFetch from "../hooks/useFetch.js";
 
 export const Home = () => {
-  const {valid} = useContext(UserContext);
+  const {valid, userData} = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -33,7 +33,7 @@ export const Home = () => {
       <Container>
         <section>
           {
-              valid ? 
+              (valid && userData.rol !== 'Publish') ? 
               <Button variant="warning" className="config-button" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Informacion General</Button>
               : ''
           }
