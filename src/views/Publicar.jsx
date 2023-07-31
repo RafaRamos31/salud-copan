@@ -1,4 +1,4 @@
-//import useFetch from "../hooks/useFetch.js";
+import useFetch from "../hooks/useFetch.js";
 import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
 import { sendNoticia } from "../services/noticias-service.js";
@@ -9,7 +9,7 @@ import { ToastContext } from "../contexts/ToastContext.js";
 
 export const Publicar = ({handleClose}) => {
 
-  const { data, isLoading }  = mockDepartamentos();
+  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
 
   //Contexts
   const { setRefetch } = useContext(RefetchContext)
