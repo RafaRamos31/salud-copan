@@ -1,4 +1,5 @@
-import { Button, Container, Modal, Tab, Tabs } from "react-bootstrap";
+import { Button, Container, Image, Modal, Tab, Tabs } from "react-bootstrap";
+import banner from '../assets/images/bannerRecursos.jpg'
 //import { mockImagenes } from "../services/mock-service.js";
 import { ContainerDocumentos } from "../components/ContainerDocumentos.jsx";
 import { useContext, useEffect, useState } from "react";
@@ -59,6 +60,8 @@ export const Recursos = () => {
   return (
     <Layout pagina={"Recursos"}>
       <main>
+      <Image src={banner}
+      className="animate__animated animate__fadeIn w-100" style={{maxHeight: '300px', objectFit: 'cover'}} fluid/>
         <h1 className="titulo-recursos">Recursos Disponibles</h1>
         {
           valid && 

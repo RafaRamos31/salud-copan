@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import { Login } from "../views/Login";
 import { useContext, useState, useEffect } from "react";
 import { logout } from "../services/login-service";
-import data from "../data/info-pagina.json"
 import { UserContext } from "../contexts/UserContext";
 import { CambiarPassword } from "../views/CambiarPassword";
+import useFetch from "../hooks/useFetch";
+import { getDepto } from "../services/stringFormatter";
 
 export const SiteNavBar = () => {
   const [actual, setActual] = useState('');
-  
+  const { data: mongoData } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+
   //Contexts
   const {valid, userData} = useContext(UserContext);
 
@@ -46,7 +48,7 @@ export const SiteNavBar = () => {
             className="d-inline-block align-top"
           />
           <label className="mt-1 mx-1" style={{cursor: 'pointer'}}>
-          {' ' + data.departamento}
+          {mongoData &&  ' ' + getDepto(mongoData.departamento)}
           </label>
         </Navbar.Brand>
 

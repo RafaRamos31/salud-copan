@@ -16,7 +16,7 @@ export const BarraFiltros = ({activeFilter, setFiltro, resetIndex}) => {
   }
   return (
     <aside className="px-3 mt-4">
-      <h3>Filtros</h3>
+      <h3>Secciones</h3>
       <ListGroup variant='dark'>
         {
           !isLoading &&

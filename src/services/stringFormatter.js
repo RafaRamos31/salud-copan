@@ -21,3 +21,8 @@ export function getImageUrl(originalUrl) {
   const id = originalUrl.split("/")[5];
   return `https://drive.google.com/uc?id=${id}`;
 }
+
+export function getDepto(deptoId) {
+  const arrayDeptos = ['Copán', 'Ocotepeque', 'Lempira', 'Santa Bárbara']
+  return arrayDeptos[deptoId];
+}

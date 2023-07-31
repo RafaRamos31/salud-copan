@@ -288,5 +288,19 @@ export function mockImagenes() {
   };
 }
 
+export const mockOficio = () => {
+  return {
+    "_id": "64c7bdd783c3ce277f0dd281",
+    "nombre":"Oficio 2144-SS-12-07-2022(Se remite infome Semestral del Grado de Avances del Plan de Trabajo COCOIN SESAL 2022-2023) (2).pdf",
+    "tipo":"Documento",
+    "docType":"pdf",
+    "tamano": 1856074,
+    "fileId": "1U2dm0cyPfBbSnVs_XJx0lLZeL4SPlvsd",
+    "enlace":"https://drive.google.com/file/d/1U2dm0cyPfBbSnVs_XJx0lLZeL4SPlvsd/view",
+    "descargar":"https://drive.google.com/u/0/uc?id=1U2dm0cyPfBbSnVs_XJx0lLZeL4SPlvsd&export=download",
+    "totalDescargas": 45
+  }
+}
+
 
 
