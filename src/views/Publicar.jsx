@@ -1,5 +1,5 @@
 import useFetch from "../hooks/useFetch.js";
-import { mockDepartamentos } from "../services/mock-service.js";
+//import { mockDepartamentos } from "../services/mock-service.js";
 import useForm from "../hooks/useForm.js";
 import { sendNoticia } from "../services/noticias-service.js";
 import { Button, Card, FloatingLabel, Form, Spinner } from 'react-bootstrap';
@@ -52,6 +52,7 @@ export const Publicar = ({handleClose}) => {
       setVariant('danger')
       setShowToast(true)
     }
+  // eslint-disable-next-line
   }, [correct])
 
   return (

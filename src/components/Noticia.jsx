@@ -42,6 +42,7 @@ export const Noticia = ({noticia}) => {
       setVariant('danger')
       setShowToast(true)
     }
+  // eslint-disable-next-line
   }, [correct])
 
 

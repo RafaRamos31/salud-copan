@@ -53,6 +53,7 @@ export const RegistrarUsuario = ({handleClose}) => {
       setVariant('danger')
       setShowToast(true)
     }
+  // eslint-disable-next-line
   }, [correct])
 
   return (

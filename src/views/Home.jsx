@@ -59,9 +59,6 @@ export const Home = () => {
             </Row>
 
             <Row>
-              <Col md={3}>
-                <Image id="img-about" src={lider} fluid rounded/>
-              </Col>
               <Col md={9}>
                 <blockquote className="text-fundador">
                   {values.mensaje}
@@ -69,6 +66,9 @@ export const Home = () => {
                 <p className="autor">
                   {values.autor}
                 </p>
+              </Col>
+              <Col md={3}>
+                <Image id="img-about" src={lider} fluid roundedCircle/>
               </Col>
             </Row>
             </Card.Body>

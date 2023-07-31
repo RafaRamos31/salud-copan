@@ -3,9 +3,9 @@ import useForm from "../hooks/useForm.js";
 import { Button, Card, FloatingLabel, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from "../contexts/ToastContext.js";
 import { UserContext } from "../contexts/UserContext.js";
-import { cambiarPassword, register } from "../services/login-service.js";
+import { cambiarPassword } from "../services/login-service.js";
 
-export const CambiarPassword = ({handleClose}) => {
+export const CambiarPassword = () => {
   //Contexts
   const { userData } = useContext(UserContext)
   const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
@@ -45,6 +45,7 @@ export const CambiarPassword = ({handleClose}) => {
       setVariant('danger')
       setShowToast(true)
     }
+  // eslint-disable-next-line
   }, [correct])
 
   return (

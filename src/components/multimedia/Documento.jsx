@@ -62,6 +62,7 @@ export const Documento = ({archivo}) => {
       setVariant('danger')
       setShowToast(true)
     }
+  // eslint-disable-next-line
   }, [correct])
   
 

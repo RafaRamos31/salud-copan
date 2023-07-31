@@ -22,6 +22,7 @@ export const SiteNavBar = () => {
   //Modal FirstLogin
   const [showFirst, setShowFirst] = useState(false);
   const handleCloseFirst = () => setShowFirst(false);
+  // eslint-disable-next-line
   const handleShowFirst = () => setShowFirst(true);
 
   useEffect(() => {
