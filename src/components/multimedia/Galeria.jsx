@@ -1,32 +1,50 @@
-import React from 'react'
+import { Carousel, Modal } from 'react-bootstrap'
+import { ImagenGaleria } from './ImagenGaleria'
+import { Fotografia } from './Fotografia'
+import { useState } from 'react'
 
-export const Galeria = ({enlaces}) => {
+export const Galeria = ({archivos}) => {
+
+  //Modal vista ampliada
+  const [showVista, setShowVista] = useState(false);
+  const handleCloseVista = () => setShowVista(false);
+  const handleShowVista = () => setShowVista(true);
+
+  if(archivos.length === 0){
+    return null
+  }
+
+  if(archivos.length === 1){
+    return <Fotografia enlace={archivos[0].enlace}/>
+  }
+
   return (
-    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-      <ol className="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img className="d-block w-100" src={enlaces[0]} alt="First slide" />
-        </div>
-        <div className="carousel-item">
-          <img className="d-block w-100" src={enlaces[1]} alt="Second slide" />
-        </div>
-        <div className="carousel-item">
-          <img className="d-block w-100" src={enlaces[2]} alt="Third slide" />
-        </div>
-      </div>
-      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="sr-only">Previous</span>
-      </a>
-      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="sr-only">Next</span>
-      </a>
-    </div>
+    <>
+      <Carousel className='w-100' data-bs-theme="dark">
+        {
+          archivos.map((archivo) => (
+            <Carousel.Item key={archivo._id} onClick={handleShowVista} style={{height: '300px'}}>
+              <div className='h-100 w-100 d-flex jusfity-content-center align-items-center' style={{maxWidth: '95vw'}}>
+                <ImagenGaleria key={archivo._id} enlace={archivo.enlace}/>
+              </div>
+            </Carousel.Item>
+          ))
+        }
+      </Carousel>
+      {/*Modal Vista Previa*/}
+      <Modal size='lg' show={showVista} centered onHide={handleCloseVista} className='h-80'>
+        <Carousel className='w-100' data-bs-theme="dark">
+          {
+            archivos.map((archivo) => (
+              <Carousel.Item key={archivo._id}>
+                <div className='d-flex jusfity-content-center align-items-center' style={{maxWidth: '95vw'}}>
+                  <ImagenGaleria key={archivo._id} enlace={archivo.enlace} modal/>
+                </div>
+              </Carousel.Item>
+            ))
+          }
+        </Carousel>
+      </Modal>
+  </>
   )
 }

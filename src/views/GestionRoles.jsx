@@ -27,6 +27,16 @@ export const GestionRoles = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  //Modal eliminar
+  const [showEliminar, setShowEliminar] = useState(false);
+  const handleCloseEliminar = () => setShowEliminar(false);
+  const handleShowEliminar = () => setShowEliminar(true);
+
+  //Handle Delete
+  const handleDelete = () => {
+    console.log('eliminar')
+  }
+
   return (
     <Layout pagina={"Gestión de Roles"}>
       <Container>
@@ -52,7 +62,11 @@ export const GestionRoles = () => {
                   <td>{user.nombre}</td>
                   <td>{user.rol}</td>
                   <td>{getDateString(user.ultimaConexion)}</td>
-                  <td>EDITAR</td>
+                  <td className="d-flex justify-content-center align-items-center">
+                    <Button variant="danger" onClick={handleShowEliminar}>
+                      <i className="bi bi-trash"></i>{' '}Eliminar
+                    </Button>
+                  </td>
                 </tr>
               ))
             }
@@ -62,8 +76,25 @@ export const GestionRoles = () => {
               <i className="bi bi-tools"></i>{' '}Registrar
         </Button>
       </Container>
+      {/*Modal registro*/}
       <Modal show={show} onHide={handleClose}>
         <RegistrarUsuario handleClose={handleClose}/>
+      </Modal>
+
+      {/*Modal eliminar*/}
+      <Modal show={showEliminar} onHide={handleCloseEliminar}>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Publicación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>¿Desea eliminar esta publicación y los archivos incluidos en la misma? Esta acción no puede revertirse.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" className="px-3" onClick={handleCloseEliminar}>
+            Volver
+          </Button>
+          <Button variant="danger" className="px-3" onClick={handleDelete}>
+            Eliminar Publicación
+          </Button>
+        </Modal.Footer>
       </Modal>
     </Layout>
   );

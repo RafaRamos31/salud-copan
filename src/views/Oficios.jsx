@@ -1,9 +1,9 @@
 import { Accordion, Container, Image } from "react-bootstrap";
 import { Layout } from "./Layout.jsx";
 import banner from "../assets/images/bannerOficios.jpg"
-import '../assets/styles/contacto.css'
 import { Documento } from "../components/multimedia/Documento.jsx";
 import { mockOficio } from "../services/mock-service.js";
+import '../assets/styles/contacto.css'
 
 export const Oficios = () => {
   const oficio = mockOficio()
@@ -21,6 +21,7 @@ export const Oficios = () => {
             {
               ['Agosto', 'Julio', 'Junio', 'Mayo', 'Abril', 'Marzo', 'Febrero', 'Enero'].map((mes, index) => (
                 <div key={index}>
+                  <hr />
                   <h3>{mes}</h3>
                   <hr />
                   <Documento archivo={oficio}></Documento>

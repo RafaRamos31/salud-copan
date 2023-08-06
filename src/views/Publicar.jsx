@@ -58,7 +58,7 @@ export const Publicar = ({handleClose}) => {
   return (
     <Card>
       <Card.Header>
-        <h3>Publicar noticia</h3>
+        <h3>Agregar Publicación</h3>
       </Card.Header>
       <Card.Body>
       <Form onSubmit={handleSubmit}>

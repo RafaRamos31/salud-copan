@@ -72,62 +72,56 @@ export const Documento = ({archivo}) => {
 
   return (
     <>
-    <div>
-      <Row>
-          <Col>
-            <Card className='my-2 documento mx-auto'>
-              <Card.Header style={{backgroundColor: 'var(--mp-azul-5)'}}>{archivo.nombre}</Card.Header>
-              <Card.Body className='d-flex flex-wrap justify-content-around'>
-                <Image height={'90px'} width={'90px'} src={require(`../../assets/images/${archivo.docType}_icon.png`)} onClick={handleShowVista} style={{cursor: 'pointer'}}></Image>
-                <div className='my-auto d-flex  flex-column justify-content-around'>
-                  <Button variant='info' onClick={handleShowVista} className='mb-3'>
-                    <i className="bi bi-eye-fill"></i>{' '}Vista Previa
-                  </Button>
-                  {
-                    !charging ? 
-                    <Button variant='info' href={archivo.descargar} onClick={handleDownload}>
-                      <i className="bi bi-download"></i>{' '}Descargar
-                    </Button>
-                    : <Button variant="info"> 
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size='sm'
-                        role="status"
-                        aria-hidden="true"
-                      />
-                      <span className="visually-hidden">Cargando...</span>
-                    </Button>
-                  }
-                  
-                </div>
-              </Card.Body>
-              <Card.Footer>
-                <Row>
-                  {
-                    valid && 
-                    <>
-                      <Col>
-                        <Button variant='warning' onClick={() => setShowToast(true)}>
-                          Editar
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button variant='danger' onClick={handleShowEliminar}>
-                          Eliminar
-                        </Button>
-                      </Col>
-                    </>
-                  }
-                  <Col className="my-auto">{Number(archivo.tamano / 1024 / 1024).toFixed(2) + ' MB'}</Col>
-                  <Col xs={3} className="d-flex justify-content-end my-auto"><i className="bi bi-arrow-down"></i> {count}</Col>
-                </Row>
-              </Card.Footer>
-            </Card>
-          </Col>
+    <Card className='my-2 px-0 documento mx-auto'>
+      <Card.Header style={{backgroundColor: 'var(--mp-azul-5)'}}>{archivo.nombre}</Card.Header>
+      <Card.Body className='d-flex flex-wrap justify-content-around'>
+        <Image height={'90px'} width={'90px'} src={require(`../../assets/images/${archivo.docType}_icon.png`)} onClick={handleShowVista} style={{cursor: 'pointer'}}></Image>
+        <div className='my-auto d-flex  flex-column justify-content-around'>
+          <Button variant='info' onClick={handleShowVista} className='mb-3'>
+            <i className="bi bi-eye-fill"></i>{' '}Vista Previa
+          </Button>
+          {
+            !charging ? 
+            <Button variant='info' href={archivo.descargar} onClick={handleDownload}>
+              <i className="bi bi-download"></i>{' '}Descargar
+            </Button>
+            : <Button variant="info"> 
+              <Spinner
+                as="span"
+                animation="border"
+                size='sm'
+                role="status"
+                aria-hidden="true"
+              />
+              <span className="visually-hidden">Cargando...</span>
+            </Button>
+          }
+          
+        </div>
+      </Card.Body>
+      <Card.Footer>
+        <Row>
+          {
+            valid && 
+            <>
+              <Col>
+                <Button variant='warning' onClick={() => setShowToast(true)}>
+                  Editar
+                </Button>
+              </Col>
+              <Col>
+                <Button variant='danger' onClick={handleShowEliminar}>
+                  Eliminar
+                </Button>
+              </Col>
+            </>
+          }
+          <Col className="my-auto">{Number(archivo.tamano / 1024 / 1024).toFixed(2) + ' MB'}</Col>
+          <Col xs={3} className="d-flex justify-content-end my-auto"><i className="bi bi-arrow-down"></i> {count}</Col>
         </Row>
-    </div>
-    
+      </Card.Footer>
+    </Card>
+   
     {/*Modal Vista Previa*/}
     <Modal size='lg' show={showVista} onHide={handleCloseVista}>
       <iframe title={archivo.nombre} src={`https://drive.google.com/file/d/${archivo.fileId}/preview`} 

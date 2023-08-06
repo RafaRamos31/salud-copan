@@ -1,13 +1,14 @@
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import { getDateString } from "../services/stringFormatter";
 import { Departamento } from "./Departamento";
-import { ContainerMultimedia } from "./multimedia/ContainerMultimedia";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { eliminarNoticia } from "../services/noticias-service";
 import { ToastContext } from "../contexts/ToastContext";
+import { Galeria } from "./multimedia/Galeria";
+import { DocumentosNoticia } from "./multimedia/DocumentosNoticia";
 
-export const Noticia = ({noticia}) => {
+export const Noticia = ({noticia, isModal = false}) => {
   //Contexts
   const {valid} = useContext(UserContext)
   const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
@@ -19,6 +20,11 @@ export const Noticia = ({noticia}) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //Modal Vista
+  const [showVista, setShowVista] = useState(false);
+  const handleCloseVista = () => setShowVista(false);
+  const handleShowVista = () => setShowVista(true);
 
   //Eliminar noticia
   const [correct, setCorrect] = useState(null);
@@ -46,15 +52,20 @@ export const Noticia = ({noticia}) => {
   }, [correct])
 
 
+  //Separar imagenes de documentos
+  const filesNoticia = noticia.archivos.filter((archivo) => archivo.tipo === "Documento")
+  const imagesNoticia = noticia.archivos.filter((archivo) => archivo.tipo === "Imagen")
+
+
   if(!visible){
     return null
   }
 
   return (
     <>
-    <Card className="mb-4 mr-3 noticia">
+    <Card className="mb-4 mr-3 noticia" >
       <Card.Header className="encabezado">
-        <Row>
+        <Row onClick={handleShowVista}>
           <Col sm={8}>
             <Departamento key={noticia._id} nombre={noticia.departamento.nombre} urlLogo={noticia.departamento.urlLogo}/>
           </Col>
@@ -64,21 +75,16 @@ export const Noticia = ({noticia}) => {
         </Row>
       </Card.Header>
       <Card.Body>
-        <p>
+        <p onClick={handleShowVista}>
           {noticia.contenido}
         </p>
-        <div className="container-multimedia d-flex justify-content-around">
-        {
-          noticia.archivos.length > 1 && noticia.archivos.every((archivo) => archivo.tipo === "Imagen") 
-          ? <div> Galeria </div>
-          : noticia.archivos.map((archivo, i) => (
-            <ContainerMultimedia key={i} archivo={archivo}/>
-          )) 
-        }
+        <div className="container-multimedia d-flex flex-column justify-content-around">
+          <DocumentosNoticia documentos={filesNoticia}/>
+          <Galeria archivos={imagesNoticia} />
         </div>
       </Card.Body>
       {
-        valid && 
+        (valid && !isModal) &&
         <Card.Footer>
           <Button variant="warning"><i className="bi bi-tools "></i>{' '}Modificar</Button>
           <Button variant="danger" className="mx-3" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Eliminar</Button>
@@ -99,6 +105,11 @@ export const Noticia = ({noticia}) => {
           </Button>
         </Modal.Footer>
       </Modal>
+      {
+        !isModal && <Modal size='lg' show={showVista} onHide={handleCloseVista}>
+          <Noticia key={noticia._id} noticia={noticia} isModal={true}/>
+        </Modal>
+      }
     </>
   );
 };

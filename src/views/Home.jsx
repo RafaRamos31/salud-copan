@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import { Configuracion } from "./Configuracion.jsx";
 import useFetch from "../hooks/useFetch.js";
+import { LoadingScreen } from "./LoadingScreen.jsx";
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -26,7 +27,11 @@ export const Home = () => {
       setValues(mongoData)
     }
   }, [mongoData, isLoading])
-  
+
+  if(isLoading){
+    return <LoadingScreen />
+  }
+
   return(
     <>
     <Layout pagina={data.area}>

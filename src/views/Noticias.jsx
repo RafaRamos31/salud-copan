@@ -48,6 +48,7 @@ export const Noticias = () => {
     <Layout pagina={"Noticias"}>
       <Row className="w-100">
         <Col md={3}>
+          
           <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} resetIndex={() => setIndex(1)}/>
           {
           valid ?  

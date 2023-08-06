@@ -11,6 +11,7 @@ import '../assets/styles/recursos.css'
 import { ContainerImagenes } from "../components/ContainerImagenes.jsx";
 import { PaginacionRecursos } from "../components/PaginacionRecursos.jsx";
 import { RefetchContext } from "../contexts/RefetchContext.js";
+import { GridPlaceholderDocumentos } from "../components/GridPlaceholderDocumentos.jsx";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -20,6 +21,7 @@ export const Recursos = () => {
   const [index, setIndex] = useState(1);
   const [tipo, setTipo] = useState('Documento')
 
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
   const [dataImages, setDataImages] = useState(null)
 
@@ -27,7 +29,9 @@ export const Recursos = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const response = await fetch(process.env.REACT_APP_API_URL +  `/archivos/${index}/${tipo ? tipo : 'Documento'}`);
+        setLoading(false)
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
@@ -57,6 +61,7 @@ export const Recursos = () => {
     setTipo(key)
   };
 
+
   return (
     <Layout pagina={"Recursos"}>
       <main>
@@ -81,7 +86,11 @@ export const Recursos = () => {
             onSelect={handleTabChange}
           >
             <Tab eventKey="Documento" title="Documentos">
-              <ContainerDocumentos documentos={data} />
+              {
+                loading ?
+                <GridPlaceholderDocumentos />
+                : <ContainerDocumentos documentos={data} />
+              }
             </Tab>
             <Tab eventKey="Imagen" title="Imagenes">
               <Container>
