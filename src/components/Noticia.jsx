@@ -7,6 +7,7 @@ import { eliminarNoticia } from "../services/noticias-service";
 import { ToastContext } from "../contexts/ToastContext";
 import { Galeria } from "./multimedia/Galeria";
 import { DocumentosNoticia } from "./multimedia/DocumentosNoticia";
+import { ModificarPublicacion } from "../views/ModificarPublicacion";
 
 export const Noticia = ({noticia, isModal = false}) => {
   //Contexts
@@ -25,6 +26,11 @@ export const Noticia = ({noticia, isModal = false}) => {
   const [showVista, setShowVista] = useState(false);
   const handleCloseVista = () => setShowVista(false);
   const handleShowVista = () => setShowVista(true);
+
+  //Modal Modificar
+  const [showModificar, setShowModificar] = useState(false);
+  const handleCloseModificar = () => setShowModificar(false);
+  const handleShowModificar = () => setShowModificar(true);
 
   //Eliminar noticia
   const [correct, setCorrect] = useState(null);
@@ -86,7 +92,7 @@ export const Noticia = ({noticia, isModal = false}) => {
       {
         (valid && !isModal) &&
         <Card.Footer>
-          <Button variant="warning"><i className="bi bi-tools "></i>{' '}Modificar</Button>
+          <Button variant="warning" onClick={handleShowModificar}><i className="bi bi-tools "></i>{' '}Modificar</Button>
           <Button variant="danger" className="mx-3" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Eliminar</Button>
         </Card.Footer>
       }
@@ -110,6 +116,9 @@ export const Noticia = ({noticia, isModal = false}) => {
           <Noticia key={noticia._id} noticia={noticia} isModal={true}/>
         </Modal>
       }
+      <Modal size='lg' show={showModificar} onHide={handleCloseModificar}>
+        <ModificarPublicacion handleClose={handleCloseModificar} noticia={noticia}/>
+      </Modal>
     </>
   );
 };

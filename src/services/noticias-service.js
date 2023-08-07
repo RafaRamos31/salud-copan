@@ -22,6 +22,25 @@ export async function sendNoticia(url, values) {
   }
 }
 
+export async function editNoticia(url, values) {
+
+  const formValues = new FormData();
+  formValues.append("contenido", values.contenido);
+  formValues.append("departamento", values.departamento);
+  formValues.append("idNoticia", values.idPublicacion);
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: formValues,
+    });
+    return response.ok
+
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export async function eliminarNoticia(idNoticia) {
   
   const formValues = new FormData();

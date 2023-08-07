@@ -1,4 +1,4 @@
-import { Button, Container, Image, Modal, Tab, Tabs } from "react-bootstrap";
+import { Button, Col, Row, Container, Image, Modal, Tab, Tabs } from "react-bootstrap";
 import banner from '../assets/images/bannerRecursos.jpg'
 //import { mockImagenes } from "../services/mock-service.js";
 import { ContainerDocumentos } from "../components/ContainerDocumentos.jsx";
@@ -12,6 +12,7 @@ import { ContainerImagenes } from "../components/ContainerImagenes.jsx";
 import { PaginacionRecursos } from "../components/PaginacionRecursos.jsx";
 import { RefetchContext } from "../contexts/RefetchContext.js";
 import { GridPlaceholderDocumentos } from "../components/GridPlaceholderDocumentos.jsx";
+import { BarraBuscarRecursos } from "../components/BarraBuscarRecursos";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -25,7 +26,7 @@ export const Recursos = () => {
   const [data, setData] = useState(null)
   const [dataImages, setDataImages] = useState(null)
 
-   //Buscar noticias
+   //Buscar archivos
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,30 +77,37 @@ export const Recursos = () => {
             </Button>
           </div>
         }
-        <Container>
-          <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
-          <Tabs
-            defaultActiveKey="Documento"
-            id="fill-tab-example"
-            className="mb-3"
-            fill
-            onSelect={handleTabChange}
-          >
-            <Tab eventKey="Documento" title="Documentos">
-              {
-                loading ?
-                <GridPlaceholderDocumentos />
-                : <ContainerDocumentos documentos={data} />
-              }
-            </Tab>
-            <Tab eventKey="Imagen" title="Imagenes">
-              <Container>
-                <ContainerImagenes imagenes={dataImages} />
-              </Container>
-            </Tab>
-          </Tabs>
-          <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
-        </Container>
+        <Row>
+          <Col lg={3}>
+            <BarraBuscarRecursos setDocumentos={setData} setImagenes={setDataImages}/>
+          </Col>
+          <Col lg={9}>
+            <Container>
+              <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+              <Tabs
+                defaultActiveKey="Documento"
+                id="fill-tab-example"
+                className="mb-3"
+                fill
+                onSelect={handleTabChange}
+              >
+                <Tab eventKey="Documento" title="Documentos">
+                  {
+                    loading ?
+                    <GridPlaceholderDocumentos />
+                    : <ContainerDocumentos documentos={data} />
+                  }
+                </Tab>
+                <Tab eventKey="Imagen" title="Imagenes">
+                  <Container>
+                    <ContainerImagenes imagenes={dataImages} />
+                  </Container>
+                </Tab>
+              </Tabs>
+              <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+            </Container>
+          </Col>
+        </Row>
       </main>
       <Modal show={show} onHide={handleClose}>
         <SubirArchivo handleClose={handleClose}/>

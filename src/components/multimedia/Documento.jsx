@@ -4,6 +4,7 @@ import { aumentarDescarga, eliminarArchivo } from '../../services/archivos-servi
 import { UserContext } from '../../contexts/UserContext';
 import { ToastContext } from '../../contexts/ToastContext';
 import '../../assets/styles/documento.css'
+import { ModificarArchivo } from '../../views/ModificarArchivo.jsx';
 
 export const Documento = ({archivo}) => { 
   //Visibilidad del componente
@@ -25,6 +26,11 @@ export const Documento = ({archivo}) => {
   const [showEliminar, setShowEliminar] = useState(false);
   const handleCloseEliminar = () => setShowEliminar(false);
   const handleShowEliminar = () => setShowEliminar(true);
+
+  //Modal Modificar
+  const [showModificar, setShowModificar] = useState(false);
+  const handleCloseModificar = () => setShowModificar(false);
+  const handleShowModificar = () => setShowModificar(true);
 
   //Boton de carga
   const [charging, setCharging] = useState(false);
@@ -72,7 +78,7 @@ export const Documento = ({archivo}) => {
 
   return (
     <>
-    <Card className='my-2 px-0 documento mx-auto'>
+    <Card className='my-2 px-0 documento mx-auto' style={{maxWidth: '400px'}}>
       <Card.Header style={{backgroundColor: 'var(--mp-azul-5)'}}>{archivo.nombre}</Card.Header>
       <Card.Body className='d-flex flex-wrap justify-content-around'>
         <Image height={'90px'} width={'90px'} src={require(`../../assets/images/${archivo.docType}_icon.png`)} onClick={handleShowVista} style={{cursor: 'pointer'}}></Image>
@@ -105,7 +111,7 @@ export const Documento = ({archivo}) => {
             valid && 
             <>
               <Col>
-                <Button variant='warning' onClick={() => setShowToast(true)}>
+                <Button variant='warning' onClick={handleShowModificar}>
                   Editar
                 </Button>
               </Col>
@@ -142,6 +148,9 @@ export const Documento = ({archivo}) => {
           Eliminar Recurso
         </Button>
       </Modal.Footer>
+    </Modal>
+    <Modal size='lg' show={showModificar} onHide={handleCloseModificar}>
+      <ModificarArchivo handleClose={handleCloseModificar} archivo={archivo}/>
     </Modal>
     </>
   )

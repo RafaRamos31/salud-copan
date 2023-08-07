@@ -92,10 +92,13 @@ const sendAllChunks = async (id, file) => {
         method: "POST",
         body: formData,
       });
-  
+      
       if (!response.ok) {
         throw new Error("Error al enviar el archivo.");
       }
+
+      const jsonData = await response.json();
+      console.log(jsonData)
     } catch (error) {
       console.log(error)
     }
@@ -112,6 +115,27 @@ export async function aumentarDescarga(fileId){
     method: "PUT"
   });
 }
+
+
+export async function modificarArchivo(url, values){
+  const data = new FormData();
+
+  data.append('idArchivo', values.idArchivo)
+  data.append('nombre', values.nombre)
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: data,
+    });
+    return response.ok
+
+  } catch (error) {
+    return error.message;
+  }
+}
+
+
 
 export async function eliminarArchivo(fileId){
   const data = new FormData();

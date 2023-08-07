@@ -9,6 +9,7 @@ import "../assets/styles/noticias.css";
 import { Layout } from "./Layout.jsx";
 import { UserContext } from "../contexts/UserContext.js";
 import { RefetchContext } from "../contexts/RefetchContext.js";
+import { BarraBuscarNoticias } from "../components/BarraBuscarNoticias.jsx";
 
 export const Noticias = () => {
   const {valid} = useContext(UserContext);
@@ -48,7 +49,7 @@ export const Noticias = () => {
     <Layout pagina={"Noticias"}>
       <Row className="w-100">
         <Col md={3}>
-          
+          <BarraBuscarNoticias setNoticias={setNoticias}/>
           <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} resetIndex={() => setIndex(1)}/>
           {
           valid ?  
