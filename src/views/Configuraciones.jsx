@@ -7,6 +7,8 @@ import { Configuracion } from "./Configuracion";
 import useFetch from "../hooks/useFetch";
 import { ConfiguracionValores } from "./ConfiguracionValores";
 import { ConfiguracionFooter } from "./ConfiguracionFooter";
+import { LoadingScreen } from "./LoadingScreen";
+import { ConfiguracionContactos } from "./ConfiguracionContacto";
 
 export const Configuraciones = () => {
   //Validacion
@@ -18,7 +20,7 @@ export const Configuraciones = () => {
     }
   }, [valid, userData, navigation])
 
-  const { data } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
   
   //Modal General
   const [showGeneral, setShowGeneral] = useState(false);
@@ -34,6 +36,15 @@ export const Configuraciones = () => {
   const [showFooter, setShowFooter] = useState(false);
   const handleCloseFooter = () => setShowFooter(false);
   const handleShowFooter = () => setShowFooter(true);
+
+  //Modal Contacto
+  const [showContacto, setShowContacto] = useState(false);
+  const handleCloseContacto = () => setShowContacto(false);
+  const handleShowContacto = () => setShowContacto(true);
+
+  if(isLoading){
+    return <LoadingScreen />
+  }
 
   return (
     <>
@@ -52,7 +63,7 @@ export const Configuraciones = () => {
         <Button variant="warning" className="px-3">
           <i className="bi bi-tools"></i>{' '}Secciones
         </Button> 
-        <Button variant="warning" className="px-3">
+        <Button variant="warning" className="px-3" onClick={handleShowContacto}>
           <i className="bi bi-tools"></i>{' '}Contacto
         </Button> 
       </Container>
@@ -65,7 +76,10 @@ export const Configuraciones = () => {
     </Modal>
     <Modal show={showFooter} onHide={handleCloseFooter} size="lg">
       <ConfiguracionFooter data={data} handleClose={handleCloseFooter}/>
-  </Modal>
+    </Modal>
+    <Modal show={showContacto} onHide={handleCloseContacto} size="lg">
+      <ConfiguracionContactos data={data.contactos} handleClose={handleCloseContacto}/>
+    </Modal>
     </>
   );
 }
