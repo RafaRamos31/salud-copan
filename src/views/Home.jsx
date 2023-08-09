@@ -12,6 +12,7 @@ import { Configuracion } from "./Configuracion.jsx";
 import useFetch from "../hooks/useFetch.js";
 import { LoadingScreen } from "./LoadingScreen.jsx";
 import { FrameCambiarImagen } from "../components/FrameCambiarImagen.jsx";
+import { ConfiguracionValores } from "./ConfiguracionValores.jsx";
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -19,6 +20,11 @@ export const Home = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //Modal Valores
+  const [showValores, setShowValores] = useState(false);
+  const handleCloseValores = () => setShowValores(false);
+  const handleShowValores = () => setShowValores(true);
 
   const [values, setValues] = useState({});
   const { data: mongoData, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
@@ -40,7 +46,10 @@ export const Home = () => {
         <section>
           {
               (valid && userData.rol !== 'Publish') ? 
+              <>
               <Button variant="warning" className="config-button" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Informacion General</Button>
+              <FrameCambiarImagen show={valid}></FrameCambiarImagen>
+              </>
               : ''
           }
           <Image src={fondo} className="animate__animated animate__fadeIn" id="main-image" fluid/>
@@ -129,8 +138,8 @@ export const Home = () => {
             <Card.Body className="nosotros-container">
             <ul>
               {
-                data.valores.map((valor, i) => (<li key={i}>
-                  <b>{valor.nombre}</b>{': ' + valor.contenido}
+                values.valores && values.valores.map((valor, i) => (<li key={i}>
+                  <b>{valor.nombre}</b>{': ' + valor.descripcion}
                 </li>))
               }
               </ul>
@@ -138,7 +147,7 @@ export const Home = () => {
             {
               (valid && userData.rol !== 'Publish') ? 
                 <Card.Footer>
-                  <Button variant="warning" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Valores</Button>
+                  <Button variant="warning" onClick={handleShowValores}><i className="bi bi-tools"></i>{' '}Editar Valores</Button>
                 </Card.Footer>
                 : ''
             }
@@ -156,6 +165,9 @@ export const Home = () => {
     </Layout>
     <Modal show={show} onHide={handleClose} size="lg">
       <Configuracion data={values}/>
+    </Modal>
+    <Modal show={showValores} onHide={handleCloseValores} size="lg">
+      <ConfiguracionValores data={values ? values.valores : null} handleClose={handleCloseValores}/>
     </Modal>
     </>
   );

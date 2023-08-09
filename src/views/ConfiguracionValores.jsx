@@ -1,13 +1,18 @@
-import useForm from "../hooks/useForm.js";
-import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
-import { updateGeneralConfig } from "../services/config-service.js";
+import { Button, Card, Table } from 'react-bootstrap';
 
-export const Configuracion = ({data, handleClose=null}) => {
-  const { values, handleChange } = useForm(data);
+export const ConfiguracionValores = ({data, handleClose=null}) => {
+  let names = []
+  let descriptions = []
 
+  data.forEach((valor, i) => {
+    names[i] = valor.nombre;
+    descriptions[i] = valor.descripcion;
+  })
+
+  console.log(names)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateGeneralConfig(values)
+    //await updateGeneralConfig(values)
     if(!handleClose) window.location.reload();
     handleClose()
   };
@@ -15,86 +20,39 @@ export const Configuracion = ({data, handleClose=null}) => {
   return (
     <Card>
       <Card.Header>
-        <h3>Editar Infomación de la Página</h3>
+        <h3>Editar Infomación de Valores</h3>
       </Card.Header>
       <Card.Body>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-4">
-          <FloatingLabel label="Título">
-            <Form.Control aria-label="Titulo"  id="titulo" name="titulo" onChange={handleChange} value={values.titulo} required/>
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group className="mb-4">
-          <FloatingLabel label="Sub-titulo">
-            <Form.Control aria-label="Sub-titulo"  id="subtitulo" name="subtitulo" onChange={handleChange} value={values.subtitulo} required/>
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <FloatingLabel label="Departamento">
-            <Form.Select aria-label="Select Departamento"  id="departamento" name="departamento" onChange={handleChange} value={values.departamento}>
-              <option>Seleccione un Departamento</option>
-              <option value={0}>Copán</option>
-              <option value={1}>Ocotepeque</option>
-              <option value={2}>Lempira</option>
-              <option value={3}>Santa Bárbara</option>
-            </Form.Select>
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="nosotros">Sobre Nosotros</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Sobre nosotros"
-            style={{ height: '200px' }}
-            name='nosotros'
-            id='nosotros'
-            value={values.nosotros}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="mensaje">Mensaje de representante</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Mensaje"
-            style={{ height: '100px' }}
-            name='mensaje'
-            id='mensaje'
-            value={values.mensaje}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-        <Form.Label htmlFor="mision">Misión</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Misión"
-            style={{ height: '100px' }}
-            name='mision'
-            id='mision'
-            value={values.mision}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="vision">Visión</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Visión"
-            style={{ height: '100px' }}
-            name='vision'
-            id='vision'
-            value={values.vision}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-4">
-          <FloatingLabel label="Enlace Mapa">
-            <Form.Control aria-label="Enlace Mapa"  id="urlMapa" name="urlMapa" onChange={handleChange} value={values.urlMapa} required/>
-          </FloatingLabel>
-        </Form.Group>
-        <Button as="input" variant="info" type="submit" value="Guardar Cambios" />
-      </Form>
+      <Table responsive="sm" bordered>
+          <thead>
+            <tr>
+              <th>Valor</th>
+              <th>Descripcion</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.map((valor, i) => (
+                <tr key={i}>
+                  <td><input type="text" style={{width: '100%'}} value={valor.nombre}/></td>
+                  <td><textarea name="" id="" cols="50" rows="3" value={valor.descripcion}></textarea></td>
+                  <td className="d-flex justify-content-center align-items-center">
+                    <Button variant="danger">
+                      <i className="bi bi-trash"></i>{' '}Eliminar
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </Table>
+        <Button variant="info">
+          Agregar
+        </Button>
+        <Button variant="warning" className='mx-5'>
+          Guardar Cambios
+        </Button>
       </Card.Body>
     </Card>
   );

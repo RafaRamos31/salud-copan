@@ -5,6 +5,8 @@ import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Configuracion } from "./Configuracion";
 import useFetch from "../hooks/useFetch";
+import { ConfiguracionValores } from "./ConfiguracionValores";
+import { ConfiguracionFooter } from "./ConfiguracionFooter";
 
 export const Configuraciones = () => {
   //Validacion
@@ -23,6 +25,16 @@ export const Configuraciones = () => {
   const handleCloseGeneral = () => setShowGeneral(false);
   const handleShowGeneral = () => setShowGeneral(true);
 
+  //Modal Valores
+  const [showValores, setShowValores] = useState(false);
+  const handleCloseValores = () => setShowValores(false);
+  const handleShowValores = () => setShowValores(true);
+
+  //Modal Footer
+  const [showFooter, setShowFooter] = useState(false);
+  const handleCloseFooter = () => setShowFooter(false);
+  const handleShowFooter = () => setShowFooter(true);
+
   return (
     <>
     <Layout pagina={"Configuraciones"}>
@@ -31,10 +43,10 @@ export const Configuraciones = () => {
         <Button variant="warning" className="px-3" onClick={handleShowGeneral}>
           <i className="bi bi-tools"></i>{' '}Configuracion General
         </Button>  
-        <Button variant="warning" className="px-3">
+        <Button variant="warning" className="px-3" onClick={handleShowValores}>
           <i className="bi bi-tools"></i>{' '}Valores
         </Button> 
-        <Button variant="warning" className="px-3">
+        <Button variant="warning" className="px-3"  onClick={handleShowFooter}>
           <i className="bi bi-tools"></i>{' '}Pie de Pagina
         </Button> 
         <Button variant="warning" className="px-3">
@@ -48,6 +60,12 @@ export const Configuraciones = () => {
     <Modal show={showGeneral} onHide={handleCloseGeneral} size="lg">
       <Configuracion data={data} handleClose={handleCloseGeneral}/>
     </Modal>
+    <Modal show={showValores} onHide={handleCloseValores} size="lg">
+      <ConfiguracionValores data={data ? data.valores : null} handleClose={handleCloseValores}/>
+    </Modal>
+    <Modal show={showFooter} onHide={handleCloseFooter} size="lg">
+      <ConfiguracionFooter data={data} handleClose={handleCloseFooter}/>
+  </Modal>
     </>
   );
 }

@@ -1,9 +1,8 @@
-import { Container, Image } from "react-bootstrap";
+import { Accordion, Container, Image } from "react-bootstrap";
 import { Layout } from "./Layout.jsx";
 import banner from "../assets/images/bannerGestores.jpg"
 import '../assets/styles/contacto.css'
 import useFetch from '../hooks/useFetch.js'
-import TableauDashboard from "../components/TableauDashboard.jsx";
 
 export const Gestores = () => {
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
@@ -14,17 +13,21 @@ export const Gestores = () => {
       className="animate__animated animate__fadeIn w-100" style={{maxHeight: '300px', objectFit: 'cover'}} fluid/>
       <h1 className="titulo-contacto">GESTORES</h1>
       <Container>
+      <Accordion alwaysOpen>
+            
       {
         !isLoading &&
-        data.map(depto => (
-          <div key={depto._id}>
-            <img className='icon-departamento' src={depto.urlLogo} alt={"logo" + depto.nombre} />
-            <h2>{depto.nombre}</h2>
-            <hr />
-          </div>
+        data.map((depto, index) => (
+          <Accordion.Item eventKey={index}>
+            <Accordion.Header>{depto.nombre}</Accordion.Header>
+            <Accordion.Body>
+             <img className='icon-departamento' src={depto.urlLogo} alt={"logo" + depto.nombre} />
+              <p>El Departamento de Salud y Servicios Humanos trabaja con los gobiernos estatales y locales en todo el país para realizar investigaciones y prestar servicios públicos de salud, programas de seguridad de alimentos y medicamentos, programas de seguro médico de salud y muchos otros servicios.</p>
+            </Accordion.Body>
+          </Accordion.Item>
         ))
         } 
-        <TableauDashboard urlTablero={"https://public.tableau.com/views/CMO_1/GlobalOverview?:embed=y&:embed_code_version=3&:loadOrderID=4&:display_count=y&:origin=viz_share_link"} />
+        </Accordion>
       </Container>            
     </Layout>
   );
