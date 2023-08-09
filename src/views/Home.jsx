@@ -11,6 +11,7 @@ import { UserContext } from "../contexts/UserContext.js";
 import { Configuracion } from "./Configuracion.jsx";
 import useFetch from "../hooks/useFetch.js";
 import { LoadingScreen } from "./LoadingScreen.jsx";
+import { FrameCambiarImagen } from "../components/FrameCambiarImagen.jsx";
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -42,8 +43,7 @@ export const Home = () => {
               <Button variant="warning" className="config-button" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Informacion General</Button>
               : ''
           }
-          <Image src={fondo}
-          className="animate__animated animate__fadeIn" id="main-image" fluid/>
+          <Image src={fondo} className="animate__animated animate__fadeIn" id="main-image" fluid/>
           <h1 id="main-title" className="animate__animated animate__fadeInUp">{values.titulo}</h1>
           <p id="text-departamento" className="animate__animated animate__fadeInUp">{values.subtitulo}</p>
         </section>
@@ -59,7 +59,9 @@ export const Home = () => {
                 </p>
               </Col>
               <Col md={3}>
-                <Image id="img-about" src={nosotros} fluid thumbnail/>
+                <FrameCambiarImagen show={valid}>
+                  <Image id="img-about" src={nosotros} fluid thumbnail/>
+                </FrameCambiarImagen>
               </Col>
             </Row>
 
@@ -73,7 +75,9 @@ export const Home = () => {
                 </p>
               </Col>
               <Col md={3}>
-                <Image id="img-about" src={lider} fluid roundedCircle/>
+                <FrameCambiarImagen show={valid}>
+                  <Image id="img-about" src={lider} fluid roundedCircle/>
+                </FrameCambiarImagen>
               </Col>
             </Row>
             </Card.Body>
@@ -113,7 +117,9 @@ export const Home = () => {
         <section className="organigrama" id="organigrama">
           <h2 className="sub-title">Organigrama</h2>
           <div className="media-container">
-            <Image src={organigrama} fluid thumbnail/>
+            <FrameCambiarImagen show={valid}>
+              <Image src={organigrama} fluid thumbnail/>
+            </FrameCambiarImagen>
           </div>
         </section>
 
@@ -129,6 +135,13 @@ export const Home = () => {
               }
               </ul>
             </Card.Body>
+            {
+              (valid && userData.rol !== 'Publish') ? 
+                <Card.Footer>
+                  <Button variant="warning" onClick={handleShow}><i className="bi bi-tools"></i>{' '}Editar Valores</Button>
+                </Card.Footer>
+                : ''
+            }
           </Card>
         </section>
 

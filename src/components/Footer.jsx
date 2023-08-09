@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap"
+
 export const Footer = () => {
   return (
     <footer
@@ -82,6 +84,11 @@ export const Footer = () => {
                role="button"
                ><i className="fab fa-instagram"></i
               ></a>
+              <div>
+            <Button variant="warning">
+              <i className="bi bi-tools"></i>{' '}Modificar
+            </Button> 
+          </div>
           </div>
         </div>
       </div>
