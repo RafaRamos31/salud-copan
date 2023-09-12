@@ -13,6 +13,7 @@ import useFetch from "../hooks/useFetch.js";
 import { LoadingScreen } from "./LoadingScreen.jsx";
 import { FrameCambiarImagen } from "../components/FrameCambiarImagen.jsx";
 import { ConfiguracionValores } from "./ConfiguracionValores.jsx";
+import { BotonCambiarBanner } from "../components/BotonCambiarBanner.jsx";
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -42,6 +43,7 @@ export const Home = () => {
   return(
     <>
     <Layout pagina={data.area}>
+      <BotonCambiarBanner show={(valid && userData.rol !== 'Publish')} />
       <Container>
         <section>
           {
@@ -58,8 +60,8 @@ export const Home = () => {
 
         <section className="sobre-nosotros" id="sobre-nosotros">
           <h2 className="sub-title">¿Quiénes Somos?</h2>
-          <Card>
-            <Card.Body className="nosotros-container">
+          <Card style={{borderRadius: '30px'}}>
+            <Card.Body className="nosotros-container" style={{borderRadius: '30px'}}>
               <Row>
               <Col md={9}>
                 <p className="text-nosotros">
@@ -96,8 +98,8 @@ export const Home = () => {
           <h2 className="sub-title">Misión y Visión</h2>
           <Row>
             <Col md={6}>
-              <Card className="h-100">
-                <Card.Body className="item">
+              <Card className="h-100" style={{borderRadius: '30px'}}>
+                <Card.Body className="item" style={{borderRadius: '30px'}}>
                   <div className="icon">
                     <i className="bi bi-book text-icon"></i>Misión
                   </div>
@@ -108,8 +110,8 @@ export const Home = () => {
               </Card>
             </Col>
             <Col md={6}>
-              <Card className="h-100">
-                <Card.Body className="item">
+              <Card className="h-100" style={{borderRadius: '30px'}}>
+                <Card.Body className="item" style={{borderRadius: '30px'}}>
                   <div className="icon">
                     <i className="bi bi-search text-icon"></i>Visión
                   </div>

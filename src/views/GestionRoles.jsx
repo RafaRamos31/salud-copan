@@ -7,10 +7,15 @@ import { RegistrarUsuario } from "./RegistrarUsuario";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContext } from "../contexts/ToastContext";
 
 export const GestionRoles = () => {
   //Validacion
   const {valid, userData} = useContext(UserContext);
+
+  //Toast
+  const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
+
   const navigation = useNavigate()
   useEffect(() => {
     if(!valid || userData.rol !== 'Master'){
@@ -18,9 +23,23 @@ export const GestionRoles = () => {
     }
 
   }, [valid, userData, navigation])
-  
 
+  const [selected, setSelected] = useState('')
+  
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/admin/userlist');
+
+  //usuarios
+  const [master, setMaster] = useState(null)
+  const [users, setUsers] = useState(null)
+
+  useEffect(() => {
+    if(data && users === null){
+      setMaster(data.filter((user) => user.rol === 'Master')[0])
+      setUsers(data.filter((user) => user.rol !== 'Master'))
+    }
+  
+  }, [data, isLoading, users])
+  
 
   //Modal registro
   const [show, setShow] = useState(false);
@@ -30,40 +49,70 @@ export const GestionRoles = () => {
   //Modal eliminar
   const [showEliminar, setShowEliminar] = useState(false);
   const handleCloseEliminar = () => setShowEliminar(false);
-  const handleShowEliminar = () => setShowEliminar(true);
+
+  const handleShowEliminar = (username) => {
+    setShowEliminar(true);
+    setSelected(username)
+  }
 
   //Handle Delete
   const handleDelete = () => {
-    console.log('eliminar')
+    setUsers(users.filter((user) => user.username !== selected))
+    setSelected('')
+    handleCloseEliminar()
+    actualizarTitulo('Usuario Eliminado')
+    setContent('El usuario se ha eliminado.')
+    setVariant('info')
+    setShowToast(true)
   }
 
   return (
     <Layout pagina={"Gestión de Roles"}>
       <Container>
       <h1 className="titulo-contacto">GESTIÓN DE ROLES</h1>
-        <Table responsive="sm" bordered>
+        <Table responsive bordered>
           <thead>
             <tr>
               <th>#</th>
               <th>Username</th>
               <th>Nombre</th>
               <th>Rol</th>
+              <th>Municipio</th>
+              <th>Unidad Tecnica</th>
               <th>Última Conexión</th>
               <th>Editar</th>
             </tr>
           </thead>
           <tbody>
             {
-              !isLoading && data &&
-              data.map((user, i) => (
+              master &&
+              <tr key={master._id}>
+                <td>{1}</td>
+                <td>{master.username}</td>
+                <td>{master.nombre}</td>
+                <td>{master.rol}</td>
+                <td>{master.municipio}</td>
+                <td>{master.unidad}</td>
+                <td>{getDateString(master.ultimaConexion)}</td>
+                <td className="d-flex justify-content-center align-items-center">
+                  <Button variant="warning" onClick={() => handleShowEliminar(master.username)}>
+                    <i className="bi bi-tools"></i>{' '}Modificar
+                  </Button>
+                </td>
+              </tr>
+            }
+            {
+              users && users.map((user, i) => (
                 <tr key={user._id}>
-                  <td>{i+1}</td>
+                  <td>{i+2}</td>
                   <td>{user.username}</td>
                   <td>{user.nombre}</td>
                   <td>{user.rol}</td>
+                  <td>{user.municipio}</td>
+                  <td>{user.unidad}</td>
                   <td>{getDateString(user.ultimaConexion)}</td>
                   <td className="d-flex justify-content-center align-items-center">
-                    <Button variant="danger" onClick={handleShowEliminar}>
+                    <Button variant="danger" onClick={() => handleShowEliminar(user.username)}>
                       <i className="bi bi-trash"></i>{' '}Eliminar
                     </Button>
                   </td>
@@ -84,15 +133,15 @@ export const GestionRoles = () => {
       {/*Modal eliminar*/}
       <Modal show={showEliminar} onHide={handleCloseEliminar}>
         <Modal.Header closeButton>
-          <Modal.Title>Eliminar Publicación</Modal.Title>
+          <Modal.Title>Eliminar Usuario</Modal.Title>
         </Modal.Header>
-        <Modal.Body>¿Desea eliminar esta publicación y los archivos incluidos en la misma? Esta acción no puede revertirse.</Modal.Body>
+        <Modal.Body>¿Desea eliminar la cuenta de este usuario? Esta acción no puede revertirse.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" className="px-3" onClick={handleCloseEliminar}>
             Volver
           </Button>
           <Button variant="danger" className="px-3" onClick={handleDelete}>
-            Eliminar Publicación
+            Eliminar Usuario
           </Button>
         </Modal.Footer>
       </Modal>

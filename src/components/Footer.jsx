@@ -62,9 +62,9 @@ export const Footer = () => {
 
           <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
             <h6 className="text-uppercase mb-4 font-weight-bold">Contacto</h6>
-            <p><i className="fas fa-home mr-3"></i>{values.footerDireccion}</p>
-            <p><i className="fas fa-envelope mr-3"></i>{values.footerCorreo}</p>
-            <p><i className="fas fa-phone mr-3"></i>{values.footerTelefonos}</p>
+            <p><i className="fas fa-home mr-3"></i>{' '}{values.footerDireccion}</p>
+            <p><i className="fas fa-envelope mr-3"></i>{' '}{values.footerCorreo}</p>
+            <p><i className="fas fa-phone mr-3"></i>{' '}{values.footerTelefonos}</p>
           </div>
 
           <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">

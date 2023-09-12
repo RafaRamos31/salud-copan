@@ -1,51 +1,40 @@
-import { Accordion, Container, Image } from "react-bootstrap";
+import { Button, Col, Image, Modal, Row } from "react-bootstrap";
 import { Layout } from "./Layout.jsx";
 import banner from "../assets/images/bannerOficios.jpg"
-import { Documento } from "../components/multimedia/Documento.jsx";
-import { mockOficio } from "../services/mock-service.js";
 import '../assets/styles/contacto.css'
+import { useContext, useState } from "react";
+import { UserContext } from "../contexts/UserContext.js";
+import { PublicarOficio } from "./PublicarOficio.jsx";
+import { BarraFiltrosOficios } from "../components/BarraFiltrosOficios.jsx";
 
 export const Oficios = () => {
-  const oficio = mockOficio()
+  const {valid} = useContext(UserContext);
+
+  //Modal publicar
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <Layout pagina={"Oficios"}>
       <Image src={banner}
       className="animate__animated animate__fadeIn w-100" style={{maxHeight: '300px', objectFit: 'cover'}} fluid/>
       <h1 className="titulo-contacto">OFICIOS</h1>
-      <Container>
-      <Accordion defaultActiveKey={['0']} alwaysOpen>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header><h2>2023</h2></Accordion.Header>
-          <Accordion.Body>
-            {
-              ['Agosto', 'Julio', 'Junio', 'Mayo', 'Abril', 'Marzo', 'Febrero', 'Enero'].map((mes, index) => (
-                <div key={index}>
-                  <hr />
-                  <h3>{mes}</h3>
-                  <hr />
-                  <Documento archivo={oficio}></Documento>
-                </div>
-              ))
-            }
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-        <Accordion.Header><h2>2022</h2></Accordion.Header>
-          <Accordion.Body>
-            {
-              ['Diciembre', 'Noviembre', 'Octubre', 'Septiembre', 'Agosto', 'Julio', 'Junio', 'Mayo', 'Abril', 'Marzo', 'Febrero', 'Enero'].map((mes, index) => (
-                <div key={index}>
-                  <h3>{mes}</h3>
-                  <hr />
-                  <Documento archivo={oficio}></Documento>
-                </div>
-              ))
-            }
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-      </Container>            
+      {
+        valid ?  
+        <Button className="mx-3 my-3" variant="warning" onClick={handleShow}>
+          <i className="bi bi-tools"></i>{' '}Publicar
+        </Button>
+        : ''
+      }
+      <Row>
+        <Col sm={3}>
+          <BarraFiltrosOficios/>
+        </Col>
+      </Row>
+      <Modal show={show} onHide={handleClose}>
+        <PublicarOficio handleClose={handleClose}/>
+      </Modal>          
     </Layout>
   );
 };

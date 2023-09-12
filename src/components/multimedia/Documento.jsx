@@ -110,12 +110,12 @@ export const Documento = ({archivo}) => {
           {
             valid && 
             <>
-              <Col>
+              <Col className='px-1'>
                 <Button variant='warning' onClick={handleShowModificar}>
                   Editar
                 </Button>
               </Col>
-              <Col>
+              <Col className='px-1'>
                 <Button variant='danger' onClick={handleShowEliminar}>
                   Eliminar
                 </Button>
@@ -123,7 +123,7 @@ export const Documento = ({archivo}) => {
             </>
           }
           <Col className="my-auto">{Number(archivo.tamano / 1024 / 1024).toFixed(2) + ' MB'}</Col>
-          <Col xs={3} className="d-flex justify-content-end my-auto"><i className="bi bi-arrow-down"></i> {count}</Col>
+          <Col xs={2} className="d-flex justify-content-end my-auto"><i className="bi bi-arrow-down"></i> {count}</Col>
         </Row>
       </Card.Footer>
     </Card>

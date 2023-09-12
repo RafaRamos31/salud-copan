@@ -1,52 +1,31 @@
-import { Button, Card, Table } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
+import { FormMunicipio } from '../components/FormMunicipio';
 
 export const ConfiguracionContactos = ({data, handleClose=null}) => {
+
+  const [contactos, setContactos] = useState(data)
+  
+  const handleAddMunicipio = () => {
+    setContactos([...contactos, {name: '', referencias: [":"]}])
+  }
 
   return (
     <Card>
       <Card.Header>
         <h3>Editar Infomación de Contacto</h3>
       </Card.Header>
-      <Card.Body>
+      <Card.Body style={{backgroundColor: 'var(--mp-azul-4)'}}>
         {
-          data.map((municipio, index) => (
-            <>
-              <input key={index} type="text" value={municipio.name}/>
-              <Table responsive="sm" bordered>
-                <thead>
-                  <tr>
-                    <th>Nombre establecimiento</th>
-                    <th>Telefonos</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    municipio.referencias.map((valor, i) => (
-                      <tr key={i}>
-                        <td><input type="text" style={{width: '100%'}} value={valor.split(':')[0]}/></td>
-                        <td><input type="text" style={{width: '100%'}} value={valor.split(':')[1]}/></td>
-                        <td className="d-flex justify-content-center align-items-center">
-                          <Button variant="danger">
-                            <i className="bi bi-trash"></i>{' '}Eliminar
-                          </Button>
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-                  <Button variant="info">
-                    Agregar establecimiento
-                  </Button>
-              </Table>
-            </>
+          contactos.map((municipio, index) => (
+            <FormMunicipio municipio={municipio} index={index} setContactos={setContactos}/>
           ))
         }
-        <Button variant="info">
+        <Button variant="info" onClick={handleAddMunicipio}>
           Agregar Municipio
         </Button>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer className='d-flex justify-content-center'>
         <Button variant="warning">
           Guardar Cambios
         </Button>

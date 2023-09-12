@@ -1,6 +1,6 @@
 import { Navbar, Container, Nav, Button, Modal, NavDropdown } from "react-bootstrap";
 import logo from "../assets/images/logo-salud.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Login } from "../views/Login";
 import { useContext, useState, useEffect } from "react";
 import { logout } from "../services/login-service";
@@ -12,6 +12,8 @@ import { getDepto } from "../services/stringFormatter";
 export const SiteNavBar = () => {
   const [actual, setActual] = useState('');
   const { data: mongoData } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+
+  const navigate = useNavigate();
 
   //Contexts
   const {valid, userData} = useContext(UserContext);
@@ -34,6 +36,10 @@ export const SiteNavBar = () => {
     const dirs = window.location.href.split('/')[3]
     setActual(dirs)
   }, [userData, handleShowFirst])
+
+  const navigateLink = (url) => {
+    navigate(url);
+  }
   
   return (
     <>
@@ -71,11 +77,11 @@ export const SiteNavBar = () => {
                 align='end'
               >
                 {
-                  userData.rol !== 'Publish' ? <NavDropdown.Item><Link to={'/admin/config'}>Configuraciones</Link></NavDropdown.Item> : null
+                  userData.rol !== 'Publish' ? <NavDropdown.Item onClick={() => navigateLink('/admin/config')}>Configuraciones</NavDropdown.Item> : null
                 }
                 
                 {
-                  userData.rol === 'Master' ? <NavDropdown.Item><Link to={'/admin/roles'}>Gestión de Roles</Link></NavDropdown.Item> : null
+                  userData.rol === 'Master' ? <NavDropdown.Item onClick={() => navigateLink('/admin/roles')}>Gestión de Roles</NavDropdown.Item> : null
                 }
                 <NavDropdown.Divider />
                 <div className="w-100 d-flex justify-content-center">

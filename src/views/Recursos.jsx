@@ -13,6 +13,7 @@ import { PaginacionRecursos } from "../components/PaginacionRecursos.jsx";
 import { RefetchContext } from "../contexts/RefetchContext.js";
 import { GridPlaceholderDocumentos } from "../components/GridPlaceholderDocumentos.jsx";
 import { BarraBuscarRecursos } from "../components/BarraBuscarRecursos";
+import { BarraFiltrosOficios } from "../components/BarraFiltrosOficios";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -69,17 +70,18 @@ export const Recursos = () => {
       <Image src={banner}
       className="animate__animated animate__fadeIn w-100" style={{maxHeight: '300px', objectFit: 'cover'}} fluid/>
         <h1 className="titulo-recursos">Recursos Disponibles</h1>
-        {
-          valid && 
-          <div className="d-flex justify-content-center">
-            <Button variant="warning" className="mx-4 my-3 px-4" onClick={handleShow}>
-              <i className="bi bi-tools"></i>{' '}Publicar
-            </Button>
-          </div>
-        }
         <Row>
           <Col lg={3}>
+            {
+              valid && 
+              <div className="d-flex justify-content-center">
+                <Button variant="warning" className="mx-4" onClick={handleShow}>
+                  <i className="bi bi-tools"></i>{' '}Publicar
+                </Button>
+              </div>
+            }
             <BarraBuscarRecursos setDocumentos={setData} setImagenes={setDataImages}/>
+            <BarraFiltrosOficios/>
           </Col>
           <Col lg={9}>
             <Container>
