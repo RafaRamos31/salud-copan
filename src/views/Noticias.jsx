@@ -19,6 +19,10 @@ export const Noticias = () => {
   const [index, setIndex] = useState(1);
   const [idDepto, setIdDepto] = useState(null)
 
+  //Control paginacion buscar
+  const [searching, setSearching] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const [noticias, setNoticias] = useState(null)
   
   //Modal publicar
@@ -30,11 +34,14 @@ export const Noticias = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const response = await fetch(process.env.REACT_APP_API_URL +  `/noticias/${index}${idDepto ? '/' + idDepto : ''}`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
         const jsonData = await response.json();
+        setSearching(false)
+        setLoading(false)
         setNoticias(jsonData);
       } catch (error) {
         console.error(error.message);
@@ -49,20 +56,20 @@ export const Noticias = () => {
     <Layout pagina={"Noticias"}>
       <Row className="w-100">
         <Col md={3}>
-          <BarraBuscarNoticias setNoticias={setNoticias}/>
-          <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} resetIndex={() => setIndex(1)}/>
           {
-          valid ?  
+            valid ?  
             <Button className="mx-3 my-3" variant="warning" onClick={handleShow}>
               <i className="bi bi-tools"></i>{' '}Publicar
             </Button>
             : ''
           }
+          <BarraBuscarNoticias setNoticias={setNoticias} setSearching={setSearching}/>
+          <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} resetIndex={() => setIndex(1)}/>
         </Col>
         <Col md={9}  className="px-0">
-          <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} setIndex={setIndex} />
-          {noticias && <ContainerNoticias noticias={noticias} />}
-          <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} setIndex={setIndex} />
+          <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} setIndex={setIndex} searching={searching}/>
+          <ContainerNoticias noticias={noticias} loading={loading}/>
+          <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} setIndex={setIndex} searching={searching}/>
         </Col>
       </Row>
       <Modal show={show} onHide={handleClose}>

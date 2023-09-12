@@ -9,6 +9,7 @@ const useValidate = (userId) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('refetch')
         const response = await fetch(process.env.REACT_APP_API_URL + '/validate/' + userId, {
           method: "GET",
         });
@@ -25,7 +26,9 @@ const useValidate = (userId) => {
       }
     };
 
-    fetchData();
+    if(userId){
+      fetchData();
+    }
   }, [userId]);
 
   return { valid, userData, isLoading, error };

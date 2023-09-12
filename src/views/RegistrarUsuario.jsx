@@ -4,11 +4,16 @@ import { Button, Card, FloatingLabel, Form, Modal, Spinner } from 'react-bootstr
 import { ToastContext } from "../contexts/ToastContext.js";
 import { UserContext } from "../contexts/UserContext.js";
 import { register } from "../services/login-service.js";
+import useFetch from "../hooks/useFetch.js";
+import dataMunicipios from "../data/municipios.json"
 
 export const RegistrarUsuario = ({handleClose}) => {
   //Contexts
   const { userData } = useContext(UserContext)
   const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
+
+  //Data departamentos
+  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
 
   //Formulario
   const { values, handleChange } = useForm({
@@ -65,24 +70,53 @@ export const RegistrarUsuario = ({handleClose}) => {
       <Card.Body>
       <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-4">
-            <FloatingLabel label="Nombre">
-              <Form.Control aria-label="Nombre"  id="nombre" name="nombre" onChange={handleChange} placeholder="Su nombre y apellido" required/>
-            </FloatingLabel>
+            <Form.Label>Nombre Completo</Form.Label>
+            <Form.Control aria-label="Nombre"  id="nombre" name="nombre" onChange={handleChange} placeholder="Su nombre y apellido. Ej. Juan Gomez" required/>
           </Form.Group>
           <Form.Group className="mb-4">
-            <FloatingLabel label="Usuario">
-              <Form.Control aria-label="Usuario"  id="username" name="username" onChange={handleChange} placeholder="Un nombre de usuario sin espacios" required/>
-            </FloatingLabel>
+            <Form.Label>Nombre de usuario</Form.Label>
+            <Form.Control aria-label="Usuario"  id="username" name="username" onChange={handleChange} placeholder="Ej. juangomez01" required/>
           </Form.Group>
           <Form.Group className="mb-3">
-          <FloatingLabel label="Rol">
-            <Form.Select aria-label="Select Rol"  id="rol" name="rol" onChange={handleChange}>
-              <option>Rol de usuario</option>
-              <option value={'Admin'}>Administrador</option>
-              <option value={'Publish'}>Publicador</option>
-            </Form.Select>
-          </FloatingLabel>
-        </Form.Group>
+            <FloatingLabel label="Rol">
+              <Form.Select aria-label="Select Rol"  id="rol" name="rol" onChange={handleChange}>
+                <option>Rol de usuario</option>
+                <option value={'Admin'}>Administrador</option>
+                <option value={'Publish'}>Publicador</option>
+                <option value={'Viewer'}>Lector</option>
+              </Form.Select>
+            </FloatingLabel>
+          </Form.Group>
+          {
+            values.rol === 'Publish' &&
+            <>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Municipio para publicar...">
+                <Form.Select aria-label="Seleccionar Municipio"  id="municipio" name="municipio">
+                <option value={0}>Todos los Municipios</option>
+                {
+                  dataMunicipios.municipios.map((municipio, index) => (
+                    <option value={index + 1}>{municipio}</option>
+                  ))
+                }
+                </Form.Select>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Unidad Tecnica para publicar...">
+                <Form.Select aria-label="Seleccionar Unidad"  id="unidad" name="unidad">
+                <option value={0}>Todas las Unidades</option>
+                {
+                  !isLoading &&
+                  data.map(depto => (
+                    <option key={depto._id}>{depto.nombre}</option>
+                  ))
+                }
+                </Form.Select>
+              </FloatingLabel>
+            </Form.Group>
+            </>
+          }
         <div className="d-grid gap-2">
           {
             !charging ? 

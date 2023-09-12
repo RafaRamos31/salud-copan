@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
-export const BarraBuscarNoticias = ({setNoticias}) => {
+export const BarraBuscarNoticias = ({setNoticias, setSearching}) => {
 
   const [query, setQuery] = useState('');
   const [refetch, setRefetch] = useState(false);
@@ -31,6 +31,7 @@ export const BarraBuscarNoticias = ({setNoticias}) => {
         }
         const jsonData = await response.json();
         setNoticias(jsonData)
+        setSearching(true)
       } catch (error) {
         console.error(error.message);
       }
@@ -40,7 +41,7 @@ export const BarraBuscarNoticias = ({setNoticias}) => {
       fetchData();
       setRefetch(false)
     }
-  }, [query, refetch, setNoticias])
+  }, [query, refetch, setNoticias, setSearching])
 
   return (
     <aside className="px-3 mt-4">

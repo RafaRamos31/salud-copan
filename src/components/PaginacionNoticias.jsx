@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 //import { mockCountNoticias } from "../services/mock-service";
 
-export const PaginacionNoticias = ({idDepto = '', index, setIndex}) => {
+export const PaginacionNoticias = ({idDepto = '', index, setIndex, searching}) => {
 
   const {data, isLoading} = useFetch(`${process.env.REACT_APP_API_URL}/countnoticias/${idDepto === null ? '' : idDepto}`);
   //const {data, isLoading} = mockCountNoticias();
@@ -29,6 +29,24 @@ export const PaginacionNoticias = ({idDepto = '', index, setIndex}) => {
 
   if(total<=5){
     numbers = [1, 2, 3, 4, 5];
+  }
+
+  if(searching){
+    return (
+      <Container fluid className="d-flex mt-3">
+        <Pagination>
+          <Pagination.First disabled/>
+          <Pagination.Prev disabled/>
+          <Pagination.Item active >{1}</Pagination.Item>
+          <Pagination.Item disabled >{2}</Pagination.Item>
+          <Pagination.Item disabled >{3}</Pagination.Item>
+          <Pagination.Item disabled >{4}</Pagination.Item>
+          <Pagination.Item disabled >{5}</Pagination.Item>
+          <Pagination.Next disabled/>
+          <Pagination.Last disabled/>
+        </Pagination>
+      </Container>
+    );
   }
 
   return (

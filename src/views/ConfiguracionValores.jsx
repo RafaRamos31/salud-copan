@@ -1,59 +1,79 @@
-import { Button, Card, Table } from 'react-bootstrap';
+import { Button, Card, Form, Table } from 'react-bootstrap';
+import useForm from '../hooks/useForm';
+import { useState } from 'react';
+import { range } from 'lodash';
 
 export const ConfiguracionValores = ({data, handleClose=null}) => {
-  let names = []
-  let descriptions = []
 
-  data.forEach((valor, i) => {
-    names[i] = valor.nombre;
-    descriptions[i] = valor.descripcion;
+  const nombres = {}
+  const descripciones = {}
+  const [size, setSize] = useState(data.length)
+
+  data.map((valor, i) => {
+    nombres[`name-${i}`] = valor.nombre;
+    descripciones[`desc-${i}`] = valor.descripcion
+    return i;
   })
 
-  console.log(names)
+  //Formulario
+  const { values: nameValues, handleChange: handleChangeNames} = useForm(nombres);
+  const { values: descValues, handleChange: handleChangeDesc } = useForm(descripciones);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     //await updateGeneralConfig(values)
-    if(!handleClose) window.location.reload();
-    handleClose()
+    console.log(nameValues)
+    console.log(descValues)
+    //handleClose()
   };
+
+  const handleAdd = () => {
+    setSize(size + 1)
+  }
+
+  const handleDelete = () => {
+    setSize(size - 1)
+  }
+
 
   return (
     <Card>
+      <Form onSubmit={handleSubmit}>
       <Card.Header>
         <h3>Editar Infomación de Valores</h3>
       </Card.Header>
       <Card.Body>
-      <Table responsive="sm" bordered>
+      <Table responsive bordered>
           <thead>
             <tr>
-              <th>Valor</th>
+              <th style={{minWidth: '150px'}}>Valor</th>
               <th>Descripcion</th>
-              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
             {
-              data.map((valor, i) => (
+              range(0, size).map(i => (
                 <tr key={i}>
-                  <td><input type="text" style={{width: '100%'}} value={valor.nombre}/></td>
-                  <td><textarea name="" id="" cols="50" rows="3" value={valor.descripcion}></textarea></td>
-                  <td className="d-flex justify-content-center align-items-center">
-                    <Button variant="danger">
-                      <i className="bi bi-trash"></i>{' '}Eliminar
-                    </Button>
-                  </td>
+                  <td><input type="text" style={{width: '100%'}} name={`name-${i}`} id={`name-${i}`} value={nameValues[`name-${i}`]} onChange={handleChangeNames}/></td>
+                  <td><textarea cols="50" rows="3" name={`desc-${i}`} id={`desc-${i}`} value={descValues[`desc-${i}`]} onChange={handleChangeDesc}></textarea></td>
                 </tr>
               ))
             }
           </tbody>
         </Table>
-        <Button variant="info">
+        <Button variant="info" onClick={handleAdd}>
           Agregar
         </Button>
-        <Button variant="warning" className='mx-5'>
-          Guardar Cambios
+        <Button variant="danger" onClick={handleDelete}>
+          <i className="bi bi-trash"></i>{' '}Eliminar
         </Button>
       </Card.Body>
+      <Card.Footer className='d-flex justify-content-center'>
+        <Button variant="warning" type='submit'>
+          Guardar Cambios
+        </Button>
+      </Card.Footer>
+      </Form>
     </Card>
   );
 }

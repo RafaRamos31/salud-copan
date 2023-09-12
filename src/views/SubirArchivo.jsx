@@ -52,7 +52,7 @@ export const SubirArchivo = ({handleClose}) => {
       <Card.Header>
         <h3>Subir Archivos</h3>
       </Card.Header>
-      <Card.Body>
+      <Card.Body style={{backgroundColor: 'var(--mp-azul-4)'}}>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Multimedia (imagenes o documentos)</Form.Label>

@@ -73,10 +73,19 @@ export const Noticia = ({noticia, isModal = false}) => {
       <Card.Header className="encabezado">
         <Row onClick={handleShowVista}>
           <Col sm={8}>
-            <Departamento key={noticia._id} nombre={noticia.departamento.nombre} urlLogo={noticia.departamento.urlLogo}/>
+            <div className="h-100 d-flex align-items-center">
+              <Departamento key={noticia._id} nombre={noticia.departamento.nombre} urlLogo={noticia.departamento.urlLogo}/>
+            </div>
           </Col>
           <Col sm={4}>
-            <p className="fecha">{getDateString(noticia.fechaPublicacion)}</p>
+            <div className="d-flex flex-column align-items-end">
+              <h6>Santa Rosa</h6>
+              <h6>{getDateString(noticia.fechaPublicacion)}</h6>
+              {
+                valid &&
+                <h6>Publicado por: Rafa</h6>
+              }
+            </div>
           </Col>
         </Row>
       </Card.Header>

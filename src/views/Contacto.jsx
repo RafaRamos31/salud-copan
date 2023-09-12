@@ -52,7 +52,7 @@ export const Contacto = () => {
             <Accordion alwaysOpen>
               {
                 data.contactos.map((municipio, index) => (
-                  <Accordion.Item eventKey={index}>
+                  <Accordion.Item key={index} eventKey={index}>
                     <Accordion.Header>{municipio.name}</Accordion.Header>
                     <Accordion.Body>
                       <ul>
@@ -87,7 +87,6 @@ export const Contacto = () => {
                       id="nombre"
                       onChange={handleChange}
                       required
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -99,7 +98,6 @@ export const Contacto = () => {
                       id="apellido"
                       onChange={handleChange}
                       required
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -113,7 +111,6 @@ export const Contacto = () => {
                       id="municipio"
                       onChange={handleChange}
                       required
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -124,7 +121,6 @@ export const Contacto = () => {
                       name="comunidad"
                       id="comunidad"
                       onChange={handleChange}
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -138,7 +134,6 @@ export const Contacto = () => {
                       name="correo"
                       id="correo"
                       onChange={handleChange}
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -150,7 +145,6 @@ export const Contacto = () => {
                       id="telefono"
                       onChange={handleChange}
                       required
-                      disabled={valid}
                     />
                   </Form.Group>
                 </Col>
@@ -165,7 +159,6 @@ export const Contacto = () => {
                   id="mensaje"
                   onChange={handleChange}
                   required
-                  disabled={valid}
                 />
               </Form.Group>
               <Button
@@ -174,7 +167,6 @@ export const Contacto = () => {
                 variant="info"
                 type="submit"
                 value="Enviar Formulario"
-                disabled={valid}
               />
             </Form>
           </Col>

@@ -17,7 +17,7 @@ export const Configuracion = ({data, handleClose=null}) => {
       <Card.Header>
         <h3>Editar Infomación de la Página</h3>
       </Card.Header>
-      <Card.Body>
+      <Card.Body style={{backgroundColor: 'var(--mp-azul-4)'}}>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-4">
           <FloatingLabel label="Título">
