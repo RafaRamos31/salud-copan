@@ -1,41 +1,59 @@
-import { Button, Col, Image, Modal, Row } from "react-bootstrap";
-import { Layout } from "./Layout.jsx";
-import banner from "../assets/images/bannerOficios.jpg"
+import { Accordion } from "react-bootstrap";
 import '../assets/styles/contacto.css'
-import { useContext, useState } from "react";
-import { UserContext } from "../contexts/UserContext.js";
-import { PublicarOficio } from "./PublicarOficio.jsx";
-import { BarraFiltrosOficios } from "../components/BarraFiltrosOficios.jsx";
+import { useEffect, useState } from "react";
+import { ContainerDocumentos } from "../components/ContainerDocumentos";
+import useFetch from "../hooks/useFetch.js";
 
 export const Oficios = () => {
-  const {valid} = useContext(UserContext);
 
-  //Modal publicar
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [values, setValues] = useState(null);
+  const { data: mongoData, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/noticias/oficios`);
+
+  useEffect(() => {
+    if(mongoData){
+      setValues(mongoData)
+    }
+  }, [mongoData, isLoading])
+
 
   return (
-    <Layout pagina={"Oficios"}>
-      <Image src={banner}
-      className="animate__animated animate__fadeIn w-100" style={{maxHeight: '300px', objectFit: 'cover'}} fluid/>
-      <h1 className="titulo-contacto">OFICIOS</h1>
-      {
-        valid ?  
-        <Button className="mx-3 my-3" variant="warning" onClick={handleShow}>
-          <i className="bi bi-tools"></i>{' '}Publicar
-        </Button>
-        : ''
-      }
-      <Row>
-        <Col sm={3}>
-          <BarraFiltrosOficios/>
-        </Col>
-      </Row>
-      <Modal show={show} onHide={handleClose}>
-        <PublicarOficio handleClose={handleClose}/>
-      </Modal>          
-    </Layout>
+    <Accordion>
+      <Accordion.Item eventKey="2023">
+        <Accordion.Header>2023</Accordion.Header>
+        <Accordion.Body>
+          <Accordion>
+            {
+              ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'].map((mes, index) => 
+                <Accordion.Item key={index} eventKey={mes + '-2023'}>
+                  <Accordion.Header>{mes}</Accordion.Header>
+                  <Accordion.Body>
+                    {
+                      values && <ContainerDocumentos documentos={values} />
+                    }
+                  </Accordion.Body>
+                </Accordion.Item>
+              )
+            }
+          </Accordion>
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="2022">
+        <Accordion.Header>2022</Accordion.Header>
+        <Accordion.Body>
+          <Accordion>
+              {
+                ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'].map((mes, index) => 
+                  <Accordion.Item key={index} eventKey={mes + '-2022'}>
+                    <Accordion.Header>{mes}</Accordion.Header>
+                    <Accordion.Body>
+                      
+                    </Accordion.Body>
+                  </Accordion.Item>
+                )
+              }
+            </Accordion>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   );
 };
-

@@ -1,13 +1,35 @@
 import { Button, Card, FloatingLabel, Form, Table } from 'react-bootstrap';
+import { updateFooterConfig } from '../services/config-service';
+import useForm from '../hooks/useForm';
 
 export const ConfiguracionFooter = ({data, handleClose=null}) => {
 
+  const { values, handleChange, setValues } = useForm(data);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //await updateGeneralConfig(values)
-    if(!handleClose) window.location.reload();
-    handleClose()
+
+    await updateFooterConfig(values);
+  
+    if(!handleClose){
+      window.location.reload();
+    }
+    else{
+      handleClose()
+    } 
   };
+
+  const toggleCheck = (index) => {
+    let newRedes = values.footerRedes;
+    newRedes[index].exists = !newRedes[index].exists;
+    setValues({ ...values, footerRedes: newRedes });
+  }
+
+  const updateEnlace = (index, value) => {
+    let newRedes = values.footerRedes;
+    newRedes[index].enlace = value;
+    setValues({ ...values, footerRedes: newRedes });
+  }
 
   return (
     <Card>
@@ -22,33 +44,34 @@ export const ConfiguracionFooter = ({data, handleClose=null}) => {
             as="textarea"
             placeholder="Resumen"
             style={{ height: '100px' }}
-            name='resumen'
-            id='resumen'
-            value={data.footerDesc}
+            name='footerDesc'
+            id='footerDesc'
+            value={values.footerDesc}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group className="mb-4">
           <FloatingLabel label="Direccion">
-            <Form.Control aria-label="Direccion"  id="direccion" name="direccion" value={data.footerDireccion} required/>
+            <Form.Control aria-label="Direccion"  id="footerDireccion" name="footerDireccion" value={values.footerDireccion} onChange={handleChange} required/>
           </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="mb-4">
           <FloatingLabel label="Correo">
-            <Form.Control aria-label="Correo"  id="correo" name="correo" value={data.footerCorreo} required/>
+            <Form.Control aria-label="Correo"  id="footerCorreo" name="footerCorreo" value={values.footerCorreo}  onChange={handleChange} required/>
           </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="mb-4">
           <FloatingLabel label="Telefono">
-            <Form.Control aria-label="Telefono"  id="telefono" name="telefono" value={data.footerTelefonos} required/>
+            <Form.Control aria-label="Telefono"  id="footerTelefonos" name="footerTelefonos" value={values.footerTelefonos}  onChange={handleChange} required/>
           </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="mb-4">
           <FloatingLabel label="Enlace">
-            <Form.Control aria-label="Enlace"  id="enlace" name="enlace" value={data.footerEnlace} required/>
+            <Form.Control aria-label="Enlace"  id="footerEnlace" name="footerEnlace" value={values.footerEnlace} onChange={handleChange} required/>
           </FloatingLabel>
         </Form.Group>
       </Form>  
@@ -62,11 +85,11 @@ export const ConfiguracionFooter = ({data, handleClose=null}) => {
           </thead>
           <tbody>
             {
-              data.footerRedes.map((red, i) => (
+              values.footerRedes.map((red, i) => (
                 <tr key={i}>
                   <td>{red.name}</td>
-                  <td><input type="checkbox" name="" id="" checked={red.exists} /></td>
-                  <td><input type="text" disabled={!red.exists} style={{width: '100%'}} value={red.enlace}/></td>
+                  <td><input type="checkbox" name="" id="" checked={red.exists} onChange={() => toggleCheck(i)}/></td>
+                  <td><input type="text" disabled={!red.exists} style={{width: '100%'}} value={red.enlace} onChange={(e) => updateEnlace(i, e.target.value)}/></td>
                 </tr>
               ))
             }
@@ -75,7 +98,7 @@ export const ConfiguracionFooter = ({data, handleClose=null}) => {
 
       </Card.Body>
       <Card.Footer>
-        <Button variant="warning" onClick={handleClose}>
+        <Button variant="warning" onClick={handleSubmit}>
           Guardar Cambios
         </Button>
       </Card.Footer>

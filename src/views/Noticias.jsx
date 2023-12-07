@@ -18,6 +18,8 @@ export const Noticias = () => {
   //Navigation filters
   const [index, setIndex] = useState(1);
   const [idDepto, setIdDepto] = useState(null)
+  const [municipio, setMunicipio] = useState(null)
+
 
   //Control paginacion buscar
   const [searching, setSearching] = useState(false)
@@ -35,7 +37,16 @@ export const Noticias = () => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await fetch(process.env.REACT_APP_API_URL +  `/noticias/${index}${idDepto ? '/' + idDepto : ''}`);
+        const formValues = new FormData();
+        formValues.append("index", index);
+        formValues.append("idDepartamento", idDepto);
+        //formValues.append("municipio", null);
+
+        const response = await fetch(process.env.REACT_APP_API_URL +  `/noticias/get`, {
+          method: "POST",
+          body: formValues,
+        });
+
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
@@ -49,11 +60,11 @@ export const Noticias = () => {
     }
     setRefetch(false)
     fetchData();  
-  }, [index, idDepto, refetch, setRefetch])
+  }, [index, idDepto, municipio, refetch, setRefetch])
   
   
   return (
-    <Layout pagina={"Noticias"}>
+    <Layout pagina={"Publicaciones"}>
       <Row className="w-100">
         <Col md={3}>
           {
@@ -64,7 +75,7 @@ export const Noticias = () => {
             : ''
           }
           <BarraBuscarNoticias setNoticias={setNoticias} setSearching={setSearching}/>
-          <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} resetIndex={() => setIndex(1)}/>
+          <BarraFiltros activeFilter={idDepto} setFiltro={setIdDepto} setMunicipios={setMunicipio} resetIndex={() => setIndex(1)}/>
         </Col>
         <Col md={9}  className="px-0">
           <PaginacionNoticias idDepto={idDepto} index={Number.parseInt(index)} setIndex={setIndex} searching={searching}/>

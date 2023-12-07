@@ -6,7 +6,7 @@ import { Button, Card, FloatingLabel, Form, Spinner } from 'react-bootstrap';
 import { useContext, useEffect, useState } from "react";
 import { RefetchContext } from "../contexts/RefetchContext.js";
 import { ToastContext } from "../contexts/ToastContext.js";
-import dataMunicipios from "../data/municipios.json";
+import dataMunicipios from "../data/municipiosCopan.json";
 
 export const Publicar = ({handleClose}) => {
 
@@ -19,6 +19,7 @@ export const Publicar = ({handleClose}) => {
   //Formulario
   const { values, handleChange } = useForm({
     departamento: '',
+    municipio: '',
     contenido: '',
     multimedia: []
   });
@@ -76,11 +77,11 @@ export const Publicar = ({handleClose}) => {
         </Form.Group>
         <Form.Group className="mb-3">
           <FloatingLabel label="Municipio">
-            <Form.Select aria-label="Select Municipio"  id="municipio" name="municipio">
+            <Form.Select aria-label="Select Municipio"  id="municipio" name="municipio" onChange={handleChange}>
               <option>Seleccione un Municipio</option>
               {
                 dataMunicipios.municipios.map((municipio, index) => (
-                  <option value={index}>{municipio}</option>
+                  <option key={index} value={municipio}>{municipio}</option>
                 ))
               }
             </Form.Select>

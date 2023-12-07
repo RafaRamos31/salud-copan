@@ -8,25 +8,28 @@ import '../assets/styles/contacto.css'
 import { LoadingScreen } from "./LoadingScreen.jsx";
 import useFetch from "../hooks/useFetch.js";
 import { ConfiguracionContactos } from "./ConfiguracionContacto.jsx";
+import { sendMail } from "../services/mail-service.js";
+import info from '../data/info-pagina.json';
 
 export const Contacto = () => {
   const {valid, userData} = useContext(UserContext);
 
-  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config/contactos`);
 
   const { values, handleChange } = useForm({
+    pagina: info.subtitulo,
     nombre: "",
     apellido: "",
     municipio: "",
     comunidad: "",
     correo: "",
     telefono: "",
-    mensaje: "",
+    asunto: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
+    await sendMail(values);
   };
 
   //Modal Contacto
@@ -51,7 +54,7 @@ export const Contacto = () => {
             <h3 className="my-3">Nuestros Telefonos</h3>
             <Accordion alwaysOpen>
               {
-                data.contactos.map((municipio, index) => (
+                data.contactos && data.contactos.map((municipio, index) => (
                   <Accordion.Item key={index} eventKey={index}>
                     <Accordion.Header>{municipio.name}</Accordion.Header>
                     <Accordion.Body>
@@ -155,8 +158,8 @@ export const Contacto = () => {
                   as="textarea"
                   placeholder="Ingrese su mensaje..."
                   style={{ height: "200px" }}
-                  name="mensaje"
-                  id="mensaje"
+                  name="asunto"
+                  id="asunto"
                   onChange={handleChange}
                   required
                 />

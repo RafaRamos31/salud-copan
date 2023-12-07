@@ -4,17 +4,13 @@ import { Button, Card, FloatingLabel, Form, Modal, Spinner } from 'react-bootstr
 import { ToastContext } from "../contexts/ToastContext.js";
 import { UserContext } from "../contexts/UserContext.js";
 import { register } from "../services/login-service.js";
-import useFetch from "../hooks/useFetch.js";
-import dataMunicipios from "../data/municipios.json"
 
 export const RegistrarUsuario = ({handleClose}) => {
   //Contexts
   const { userData } = useContext(UserContext)
   const {setShowToast, actualizarTitulo, setContent, setVariant} = useContext(ToastContext)
 
-  //Data departamentos
-  const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/departamentos');
-
+ 
   //Formulario
   const { values, handleChange } = useForm({
     nombre: '',
@@ -87,36 +83,6 @@ export const RegistrarUsuario = ({handleClose}) => {
               </Form.Select>
             </FloatingLabel>
           </Form.Group>
-          {
-            values.rol === 'Publish' &&
-            <>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Municipio para publicar...">
-                <Form.Select aria-label="Seleccionar Municipio"  id="municipio" name="municipio">
-                <option value={0}>Todos los Municipios</option>
-                {
-                  dataMunicipios.municipios.map((municipio, index) => (
-                    <option value={index + 1}>{municipio}</option>
-                  ))
-                }
-                </Form.Select>
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Unidad Tecnica para publicar...">
-                <Form.Select aria-label="Seleccionar Unidad"  id="unidad" name="unidad">
-                <option value={0}>Todas las Unidades</option>
-                {
-                  !isLoading &&
-                  data.map(depto => (
-                    <option key={depto._id}>{depto.nombre}</option>
-                  ))
-                }
-                </Form.Select>
-              </FloatingLabel>
-            </Form.Group>
-            </>
-          }
         <div className="d-grid gap-2">
           {
             !charging ? 

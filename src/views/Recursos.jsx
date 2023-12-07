@@ -14,6 +14,9 @@ import { RefetchContext } from "../contexts/RefetchContext.js";
 import { GridPlaceholderDocumentos } from "../components/GridPlaceholderDocumentos.jsx";
 import { BarraBuscarRecursos } from "../components/BarraBuscarRecursos";
 import { BarraFiltrosOficios } from "../components/BarraFiltrosOficios";
+import { CajaHerramientas } from "../components/CajaHerramientas.jsx";
+import { Oficios } from "./Oficios.jsx";
+import { CajaHerramientasLaminas } from "../components/CajaHerramientasLaminas.jsx";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -26,6 +29,8 @@ export const Recursos = () => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
   const [dataImages, setDataImages] = useState(null)
+
+  const [view, setView] = useState('publicaciones')
 
    //Buscar archivos
   useEffect(() => {
@@ -81,32 +86,56 @@ export const Recursos = () => {
               </div>
             }
             <BarraBuscarRecursos setDocumentos={setData} setImagenes={setDataImages}/>
-            <BarraFiltrosOficios/>
+            <BarraFiltrosOficios setDocumentos={setData} setImagenes={setDataImages} setView={setView}/>
           </Col>
           <Col lg={9}>
             <Container>
-              <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
-              <Tabs
-                defaultActiveKey="Documento"
-                id="fill-tab-example"
-                className="mb-3"
-                fill
-                onSelect={handleTabChange}
-              >
-                <Tab eventKey="Documento" title="Documentos">
-                  {
-                    loading ?
-                    <GridPlaceholderDocumentos />
-                    : <ContainerDocumentos documentos={data} />
-                  }
-                </Tab>
-                <Tab eventKey="Imagen" title="Imagenes">
-                  <Container>
-                    <ContainerImagenes imagenes={dataImages} />
-                  </Container>
-                </Tab>
-              </Tabs>
-              <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+              {
+                view === 'publicaciones' &&
+                <>
+                  <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+                  <Tabs
+                    defaultActiveKey="Documento"
+                    id="fill-tab-example"
+                    className="mb-3"
+                    fill
+                    onSelect={handleTabChange}
+                  >
+                    <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+                    <Tab eventKey="Documento" title="Documentos">
+                      {
+                        loading ?
+                        <GridPlaceholderDocumentos />
+                        : <ContainerDocumentos documentos={data} />
+                      }
+                    </Tab>
+                    <Tab eventKey="Imagen" title="Imagenes">
+                      <Container>
+                        <ContainerImagenes imagenes={dataImages} />
+                      </Container>
+                    </Tab>
+                  </Tabs>
+                  <PaginacionRecursos tipo={tipo} index={index} setIndex={setIndex}/>
+                </>
+              }
+              {
+                view === 'oficios' &&
+                <>
+                  <Oficios />
+                </>
+              }
+              {
+                view === 'herramientas' &&
+                <>
+                  <CajaHerramientas />
+                </>
+              }
+              {
+                view === 'herr-laminas' &&
+                <>
+                  <CajaHerramientasLaminas />
+                </>
+              }
             </Container>
           </Col>
         </Row>

@@ -6,6 +6,7 @@ export async function sendNoticia(url, values) {
 
   const formValues = new FormData();
   formValues.append("departamento", values.departamento);
+  formValues.append("municipio", values.municipio);
   formValues.append("contenido", values.contenido);
   formValues.append("archivos", JSON.stringify(archivos));
 

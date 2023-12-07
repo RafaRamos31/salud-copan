@@ -2,6 +2,7 @@ import { Button, Card, Form, Table } from 'react-bootstrap';
 import useForm from '../hooks/useForm';
 import { useState } from 'react';
 import { range } from 'lodash';
+import { updateValoresConfig } from '../services/config-service';
 
 export const ConfiguracionValores = ({data, handleClose=null}) => {
 
@@ -21,10 +22,15 @@ export const ConfiguracionValores = ({data, handleClose=null}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //await updateGeneralConfig(values)
-    console.log(nameValues)
-    console.log(descValues)
-    //handleClose()
+
+    await updateValoresConfig(nameValues, descValues)
+  
+    if(!handleClose){
+      window.location.reload();
+    }
+    else{
+      handleClose()
+    } 
   };
 
   const handleAdd = () => {

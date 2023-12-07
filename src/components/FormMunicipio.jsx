@@ -1,37 +1,41 @@
-import { useState } from "react"
 import { Button, Card, Table } from "react-bootstrap"
-import useForm from "../hooks/useForm"
 import { range } from "lodash"
+import { useEffect, useState } from "react"
 
-export const FormMunicipio = ({municipio, index, setContactos}) => {
+export const FormMunicipio = ({municipio, index, contactos, setContactos}) => {
 
-  const [name, setName] = useState(municipio.name)
+  const [valueMunicipio, setMunicipio] = useState(municipio);
+
   const handleChangeName = (e) => {
-    setName(e.target.value)
+    setMunicipio({...municipio, name: e.target.value})
   }
 
-  const establecimientos = {}
-  const telefonos = {}
-  const [size, setSize] = useState(municipio.referencias.length)
 
-  municipio.referencias.map((valor, i) => {
-    establecimientos[`place-${i}`] = valor.split(':')[0];
-    telefonos[`phone-${i}`] = valor.split(':')[1]
-    return i;
-  })
+  const handleUpdateEstablecimiento = (e, index, part) => {
+    let name = municipio.referencias[index].split(':')
+    let newReferencias = municipio.referencias;
 
-  //Formulario
-  const { values: placeValues, handleChange: handleChangePlaces} = useForm(establecimientos);
-  const { values: phoneValues, handleChange: handleChangePhones } = useForm(telefonos);
+    if(part === 1){
+      newReferencias[index] = e.target.value + ':' + name[1];
+    }
+    else{
+      newReferencias[index] = name[0] + ':' + e.target.value;
+    }
 
-  /*const handleAddEstablecimiento = () => {
-    setContactos([...contactos, {name: '', referencias: [":"]}])
-    console.log(contactos)
-  }*/
+    setMunicipio({...municipio, referencias: newReferencias})
+  }
+
+  useEffect(() => {
+    let newContactos = [...contactos]
+    newContactos[index] = valueMunicipio
+    setContactos(newContactos)
+  
+  }, [valueMunicipio, setMunicipio, index, contactos, setContactos])
+  
 
   return (
     <Card className='px-4 py-2 my-2 mx-1' key={index} style={{backgroundColor: 'var(--mp-azul-6)'}}>
-      <input type="text" className='my-2' value={name} onChange={handleChangeName}/>
+      <input type="text" className='my-2' value={valueMunicipio.name} onChange={handleChangeName} placeholder="Nombre del Municipio/Región"/>
       <Table responsive="sm" bordered>
         <thead>
           <tr>
@@ -42,10 +46,10 @@ export const FormMunicipio = ({municipio, index, setContactos}) => {
         </thead>
         <tbody>
           {
-            range(0, size).map(i => (
+            range(0, Object.keys(contactos[index].referencias).length).map(i => (
               <tr key={i}>
-                <td><input type="text" style={{width: '100%'}} name={`place-${i}`} id={`place-${i}`} value={placeValues[`place-${i}`]} onChange={handleChangePlaces}/></td>
-                <td><input type="text" style={{width: '100%'}}/></td>
+                <td><input type="text" style={{width: '100%'}} value={contactos[index].referencias[i].split(':')[0]} onChange={(event) => handleUpdateEstablecimiento(event, index, 1)}/></td>
+                <td><input type="text" style={{width: '100%'}} value={contactos[index].referencias[i].split(':')[1]} onChange={(event) => handleUpdateEstablecimiento(event, index, 2)}/></td>
                 <td className="d-flex justify-content-center align-items-center">
                   <Button variant="danger">
                     <i className="bi bi-trash"></i>{' '}Eliminar
@@ -55,9 +59,9 @@ export const FormMunicipio = ({municipio, index, setContactos}) => {
             ))
           }
         </tbody>
-          <Button variant="info" className='my-2'>
-            Agregar establecimiento
-          </Button>
+            <Button variant="info" className='my-2'>
+              Agregar establecimiento
+            </Button>
       </Table>
     </Card>
   )

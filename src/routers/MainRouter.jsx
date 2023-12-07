@@ -8,8 +8,6 @@ import { Publicar } from '../views/Publicar'
 import { RefetchContextProvider } from '../contexts/RefetchContext'
 import { ToastContextProvider } from '../contexts/ToastContext'
 import { GestionRoles } from '../views/GestionRoles'
-import { Oficios } from '../views/Oficios'
-import { Gestores } from '../views/Gestores'
 import { Configuraciones } from '../views/Configuraciones'
 
 export const MainRouter = () => {
@@ -22,8 +20,6 @@ export const MainRouter = () => {
         <Route path="noticias" element={<Noticias />}></Route>
         <Route path="contacto" element={<Contacto />}></Route>
         <Route path="recursos" element={<Recursos />}></Route>
-        <Route path="oficios" element={<Oficios />}></Route>
-        <Route path="gestores" element={<Gestores />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="publicar" element={<Publicar />}></Route>
         <Route path="admin/config" element={<Configuraciones />}></Route>

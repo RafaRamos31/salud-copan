@@ -1,10 +1,10 @@
 import { Layout } from "./Layout.jsx";
 import { Button, Card, Col, Container, Image, Row, Modal } from "react-bootstrap";
-import fondo from "../assets/images/fondo-main.jpg"
+import fondo from "../assets/images/regional.jpg"
 import organigrama from "../assets/images/organigrama.jpg"
-import lider from "../assets/images/img-lider.jpg"
-import nosotros from "../assets/images/img-nosotros.jpg"
-import data from "../data/info-pagina.json"; 
+import lider from "../assets/images/representante.jpg"
+import valoresImg from "../assets/images/valores.png"
+import nosotros from "../assets/images/foto-nosotros.jpg"
 import '../assets/styles/home.css';
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext.js";
@@ -13,7 +13,7 @@ import useFetch from "../hooks/useFetch.js";
 import { LoadingScreen } from "./LoadingScreen.jsx";
 import { FrameCambiarImagen } from "../components/FrameCambiarImagen.jsx";
 import { ConfiguracionValores } from "./ConfiguracionValores.jsx";
-import { BotonCambiarBanner } from "../components/BotonCambiarBanner.jsx";
+import staticInfo from '../data/info-pagina.json'
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -28,7 +28,7 @@ export const Home = () => {
   const handleShowValores = () => setShowValores(true);
 
   const [values, setValues] = useState({});
-  const { data: mongoData, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config`);
+  const { data: mongoData, isLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config/general`);
 
   useEffect(() => {
     if(mongoData){
@@ -36,14 +36,24 @@ export const Home = () => {
     }
   }, [mongoData, isLoading])
 
+
+  const [valoresValues, setValoresValues] = useState({});
+  const { data: valoresData, isLoading: valoresLoading } = useFetch(process.env.REACT_APP_API_URL +  `/config/valores`);
+
+  useEffect(() => {
+    if(valoresData){
+      setValoresValues(valoresData)
+    }
+  }, [valoresData, valoresLoading])
+
+
   if(isLoading){
     return <LoadingScreen />
   }
 
   return(
     <>
-    <Layout pagina={data.area}>
-      <BotonCambiarBanner show={(valid && userData.rol !== 'Publish')} />
+    <Layout pagina={'Inicio'}>
       <Container>
         <section>
           {
@@ -54,8 +64,8 @@ export const Home = () => {
               : ''
           }
           <Image src={fondo} className="animate__animated animate__fadeIn" id="main-image" fluid/>
-          <h1 id="main-title" className="animate__animated animate__fadeInUp">{values.titulo}</h1>
-          <p id="text-departamento" className="animate__animated animate__fadeInUp">{values.subtitulo}</p>
+          <h1 id="main-title" className="animate__animated animate__fadeInUp">{staticInfo.titulo}</h1>
+          <p id="text-departamento" className="animate__animated animate__fadeInUp">{staticInfo.subtitulo}</p>
         </section>
 
         <section className="sobre-nosotros" id="sobre-nosotros">
@@ -63,21 +73,28 @@ export const Home = () => {
           <Card style={{borderRadius: '30px'}}>
             <Card.Body className="nosotros-container" style={{borderRadius: '30px'}}>
               <Row>
-              <Col md={9}>
+              <Col md={9} className="d-flex flex-column justify-content-center" >
+                <h3 className="mb-2 w-100 text-center">Historia</h3>
                 <p className="text-nosotros">
                   {values.nosotros}
                 </p>
               </Col>
               <Col md={3}>
                 <FrameCambiarImagen show={valid}>
-                  <Image id="img-about" src={nosotros} fluid thumbnail/>
+                  <Image id="img-about" src={nosotros} fluid roundedCircle/>
                 </FrameCambiarImagen>
               </Col>
             </Row>
+            </Card.Body>
+          </Card>
 
-            <Row>
-              <Col md={9}>
-                <blockquote className="text-fundador">
+          <h2 className="sub-title"> </h2>
+          <Card style={{borderRadius: '30px'}}>
+            <Card.Body className="nosotros-container" style={{borderRadius: '30px'}}>
+              <Row>
+              <Col md={9} className="d-flex flex-column justify-content-center" >
+                <h3 className="mb-2 w-100 text-center">Nuestro Representante</h3>
+                <blockquote className="text-fundador my-1">
                   {values.mensaje}
                 </blockquote>
                 <p className="autor">
@@ -136,14 +153,23 @@ export const Home = () => {
         <section className="valores" id="valores">
           <h2 className="sub-title">Nuestros Valores</h2>
           <Card>
-            <Card.Body className="nosotros-container">
-            <ul>
-              {
-                values.valores && values.valores.map((valor, i) => (<li key={i}>
-                  <b>{valor.nombre}</b>{': ' + valor.descripcion}
-                </li>))
-              }
-              </ul>
+            <Card.Body>
+              <Row>
+                <Col md={3}>
+                  <FrameCambiarImagen show={valid}>
+                    <Image id="img-about" src={valoresImg} fluid/>
+                  </FrameCambiarImagen>
+                </Col>
+                <Col md={9} className="d-flex flex-column justify-content-center" >
+                  <ul>
+                    {
+                      valoresValues.valores && valoresValues.valores.map((valor, i) => (<li key={i}>
+                        <b>{valor.nombre}</b>{': ' + valor.descripcion}
+                      </li>))
+                    }
+                  </ul>
+                </Col>
+              </Row>
             </Card.Body>
             {
               (valid && userData.rol !== 'Publish') ? 
@@ -168,7 +194,7 @@ export const Home = () => {
       <Configuracion data={values}/>
     </Modal>
     <Modal show={showValores} onHide={handleCloseValores} size="lg">
-      <ConfiguracionValores data={values ? values.valores : null} handleClose={handleCloseValores}/>
+      <ConfiguracionValores data={valoresValues ? valoresValues.valores : null}/>
     </Modal>
     </>
   );
