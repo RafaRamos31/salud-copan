@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const useTitle = (title) => {
 
   useEffect(() => {
-    document.title = `Region Departamental de Salud de Copán - ${title}`; 
+    document.title = `Dirección Sanitaria Departamental de Copán - ${title}`; 
   }, [title]);
 };
 
