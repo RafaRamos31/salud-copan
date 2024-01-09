@@ -27,7 +27,7 @@ export const BarraFiltros = ({activeFilter, setFiltro, setMunicipios, resetIndex
       setMunicipios(muni)
     }
     else{
-      setMunicipios(null)
+      setMunicipios('')
     }
     resetIndex()
   
@@ -41,7 +41,7 @@ export const BarraFiltros = ({activeFilter, setFiltro, setMunicipios, resetIndex
       <Form>
         <Form.Group className="mb-3">
             <Form.Select aria-label=""  id="municipio" name="municipio" value={muni} onChange={handleFilterMunicipios}>
-              <option value={0}>Todos los Municipios</option>
+              <option value={''}>Todos los Municipios</option>
               {
                 dataMunicipios.municipios.map((municipio, index) => (
                   <option key={index} value={municipio}>{municipio}</option>

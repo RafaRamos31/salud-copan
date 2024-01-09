@@ -51,25 +51,14 @@ export const BarraFiltrosOficios = ({setDocumentos, setImagenes, setView}) => {
       <Nav className="flex-column">
             <NavDropdown title="Publicaciones" className='w-100 text-center' id="documentos-dropdown">
               <NavDropdown.Item href="#documentos" onClick={() => setView('publicaciones')}>Todos los Archivos</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#pub-informes">Informes</NavDropdown.Item>
-              <NavDropdown.Item href="#pub-formularios">Formularios</NavDropdown.Item>
-              <NavDropdown.Item href="#pub-reglamentos">Reglamentos</NavDropdown.Item>
-              <NavDropdown.Item href="#pub-formularios">Cuestionarios</NavDropdown.Item>
             </NavDropdown>
-
-            <NavDropdown title="Oficios" id="oficios-dropdown">
-              <NavDropdown.Item href="#oficios" onClick={() => setView('oficios')}>Todos los Oficios</NavDropdown.Item>
-            </NavDropdown>
-
+            
             <NavDropdown title="Caja de Herramientas" id="herramientas-dropdown">
-              <NavDropdown.Item href="#herramientas" onClick={() => setView('herramientas')}>Todos los archivos</NavDropdown.Item>
+              <NavDropdown.Item href="#herramientas" onClick={() => setView('herramientas')}>¿Qué es la Caja de Herramientas?</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#herr-laminas" onClick={() => setView('herr-laminas')}>Laminas</NavDropdown.Item>
-              <NavDropdown.Item href="#herr-compromiso" onClick={() => setView('herr-compromiso')}>Hojas de Compromiso</NavDropdown.Item>
-              <NavDropdown.Item href="#herr-manuales" onClick={() => setView('herr-manuales')}>Manuales</NavDropdown.Item>
-              <NavDropdown.Item href="#herr-registros" onClick={() => setView('herr-registros')}>Registros</NavDropdown.Item>
-              <NavDropdown.Item href="#herr-tarjetas" onClick={() => setView('herr-tarjetas')}>Tarjetas</NavDropdown.Item>
+              <NavDropdown.Item href="#herr-laminas" onClick={() => setView('herr-laminas')}>Manuales y Guías</NavDropdown.Item>
+              <NavDropdown.Item href="#herr-compromiso" onClick={() => setView('herr-protocolos')}>Lineamientos y Protocolos</NavDropdown.Item>
+              <NavDropdown.Item href="#herr-manuales" onClick={() => setView('herr-otros')}>Otras Herramientas</NavDropdown.Item>
             </NavDropdown>
           </Nav>
       </Navbar>

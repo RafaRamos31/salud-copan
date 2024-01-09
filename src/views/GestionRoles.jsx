@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContext } from "../contexts/ToastContext";
+import { deleteUser } from "../services/login-service";
 
 export const GestionRoles = () => {
   //Validacion
@@ -25,6 +26,7 @@ export const GestionRoles = () => {
   }, [valid, userData, navigation])
 
   const [selected, setSelected] = useState('')
+  const [selectedId, setSelectedId] = useState('')
   
   const { data, isLoading } = useFetch(process.env.REACT_APP_API_URL + '/admin/userlist');
 
@@ -50,21 +52,41 @@ export const GestionRoles = () => {
   const [showEliminar, setShowEliminar] = useState(false);
   const handleCloseEliminar = () => setShowEliminar(false);
 
-  const handleShowEliminar = (username) => {
+  const handleShowEliminar = (id, username) => {
     setShowEliminar(true);
     setSelected(username)
+    setSelectedId(id)
   }
 
-  //Handle Delete
-  const handleDelete = () => {
+
+  //Eliminar archivo
+  const [correct, setCorrect] = useState(null);
+
+  const handleDelete = async () => {
+    console.log(selectedId)
+    const result = await deleteUser(selectedId)
     setUsers(users.filter((user) => user.username !== selected))
+
     setSelected('')
-    handleCloseEliminar()
-    actualizarTitulo('Usuario Eliminado')
-    setContent('El usuario se ha eliminado.')
-    setVariant('info')
-    setShowToast(true)
+    setShowEliminar(false)
+    setCorrect(result)
   }
+
+  useEffect(() => {
+    if(correct === true){
+      actualizarTitulo('Usuario Eliminado')
+      setContent('El usuario se ha eliminado.')
+      setVariant('info')
+      setShowToast(true)
+    }
+    if(correct === false){
+      actualizarTitulo('Error al Eliminar Usuario')
+      setContent('Ocurrio un error al tratar de eliminar el usuario, intente de nuevo.')
+      setVariant('danger')
+      setShowToast(true)
+    }
+  // eslint-disable-next-line
+  }, [correct])
 
   return (
     <Layout pagina={"Gestión de Roles"}>
@@ -112,7 +134,7 @@ export const GestionRoles = () => {
                   <td>{user.unidad}</td>
                   <td>{getDateString(user.ultimaConexion)}</td>
                   <td className="d-flex justify-content-center align-items-center">
-                    <Button variant="danger" onClick={() => handleShowEliminar(user.username)}>
+                    <Button variant="danger" onClick={() => handleShowEliminar(user._id, user.username)}>
                       <i className="bi bi-trash"></i>{' '}Eliminar
                     </Button>
                   </td>

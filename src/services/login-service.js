@@ -75,3 +75,21 @@ export async function cambiarPassword({password, confirmarPassword, idUsuario}) 
     return error.message;
   }
 }
+
+export async function deleteUser(userId) {
+
+  const formValues = new FormData();
+
+  formValues.append("idUsuario", userId);
+
+  try {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/usuarios', {
+      method: "DELETE",
+      body: formValues,
+    });
+    return response.ok
+
+  } catch (error) {
+    return error.message;
+  }
+}

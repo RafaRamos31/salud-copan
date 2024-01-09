@@ -1,19 +1,19 @@
+import useFetch from "../hooks/useFetch.js";
 import { Layout } from "./Layout.jsx";
 import { Button, Card, Col, Container, Image, Row, Modal } from "react-bootstrap";
 import fondo from "../assets/images/regional.jpg"
 import organigrama from "../assets/images/organigrama.jpg"
-import lider from "../assets/images/representante.jpg"
+//import lider from "../assets/images/representante.jpg"
 import valoresImg from "../assets/images/valores.png"
-import nosotros from "../assets/images/foto-nosotros.jpg"
-import '../assets/styles/home.css';
+import nosotros from "../assets/images/logo_sesal.png"
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import { Configuracion } from "./Configuracion.jsx";
-import useFetch from "../hooks/useFetch.js";
 import { LoadingScreen } from "./LoadingScreen.jsx";
 import { FrameCambiarImagen } from "../components/FrameCambiarImagen.jsx";
 import { ConfiguracionValores } from "./ConfiguracionValores.jsx";
 import staticInfo from '../data/info-pagina.json'
+import '../assets/styles/home.css';
 
 export const Home = () => {
   const {valid, userData} = useContext(UserContext);
@@ -81,29 +81,7 @@ export const Home = () => {
               </Col>
               <Col md={3}>
                 <FrameCambiarImagen show={valid}>
-                  <Image id="img-about" src={nosotros} fluid roundedCircle/>
-                </FrameCambiarImagen>
-              </Col>
-            </Row>
-            </Card.Body>
-          </Card>
-
-          <h2 className="sub-title"> </h2>
-          <Card style={{borderRadius: '30px'}}>
-            <Card.Body className="nosotros-container" style={{borderRadius: '30px'}}>
-              <Row>
-              <Col md={9} className="d-flex flex-column justify-content-center" >
-                <h3 className="mb-2 w-100 text-center">Nuestro Representante</h3>
-                <blockquote className="text-fundador my-1">
-                  {values.mensaje}
-                </blockquote>
-                <p className="autor">
-                  {values.autor}
-                </p>
-              </Col>
-              <Col md={3}>
-                <FrameCambiarImagen show={valid}>
-                  <Image id="img-about" src={lider} fluid roundedCircle/>
+                  <Image id="img-about" src={nosotros} fluid rounded style={{backgroundColor: 'white', padding: '2rem'}}/>
                 </FrameCambiarImagen>
               </Col>
             </Row>

@@ -72,10 +72,6 @@ export const SiteNavBar = () => {
                 align='end'
               >
                 {
-                  userData.rol !== 'Publish' ? <NavDropdown.Item onClick={() => navigateLink('/admin/config')}>Configuraciones</NavDropdown.Item> : null
-                }
-                
-                {
                   userData.rol === 'Master' ? <NavDropdown.Item onClick={() => navigateLink('/admin/roles')}>Gestión de Roles</NavDropdown.Item> : null
                 }
                 <NavDropdown.Divider />

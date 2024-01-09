@@ -17,7 +17,7 @@ export const Noticias = () => {
 
   //Navigation filters
   const [index, setIndex] = useState(1);
-  const [idDepto, setIdDepto] = useState(null)
+  const [idDepto, setIdDepto] = useState('')
   const [municipio, setMunicipio] = useState(null)
 
 
@@ -40,7 +40,7 @@ export const Noticias = () => {
         const formValues = new FormData();
         formValues.append("index", index);
         formValues.append("idDepartamento", idDepto);
-        //formValues.append("municipio", null);
+        formValues.append("municipio", municipio);
 
         const response = await fetch(process.env.REACT_APP_API_URL +  `/noticias/get`, {
           method: "POST",

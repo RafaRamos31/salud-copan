@@ -17,6 +17,8 @@ import { BarraFiltrosOficios } from "../components/BarraFiltrosOficios";
 import { CajaHerramientas } from "../components/CajaHerramientas.jsx";
 import { Oficios } from "./Oficios.jsx";
 import { CajaHerramientasLaminas } from "../components/CajaHerramientasLaminas.jsx";
+import { CajaHerramientasProtocolos } from "../components/CajaHerramientasProtocolos.jsx";
+import { CajaHerramientasOtros } from "../components/CajaHerramientasOtros.jsx";
 
 export const Recursos = () => {
   useTitle("Recursos");
@@ -134,6 +136,18 @@ export const Recursos = () => {
                 view === 'herr-laminas' &&
                 <>
                   <CajaHerramientasLaminas />
+                </>
+              }
+              {
+                view === 'herr-protocolos' &&
+                <>
+                  <CajaHerramientasProtocolos />
+                </>
+              }
+              {
+                view === 'herr-otros' &&
+                <>
+                  <CajaHerramientasOtros />
                 </>
               }
             </Container>
